@@ -134,9 +134,9 @@
         event.target.setPlaybackQuality('large');
         console.log(event.target.h.id, event.target.getPlayerState());
         if([1,2].indexOf(event.target.getPlayerState()) > -1){
-          document.querySelector('#' + event.target.h.id).style.display = 'initial';
+          document.querySelector('#' + event.target.h.id).style.top = '0px';
         }else{
-          document.querySelector('#' + event.target.h.id).style.display = 'none';
+          document.querySelector('#' + event.target.h.id).style.top = '-999px';
         }
       }
 
@@ -147,6 +147,7 @@
       function stop() {
         player1.stopVideo();
         player2.stopVideo();
+        vhs_static.stopVideo();
       }
 
       function next(i)
