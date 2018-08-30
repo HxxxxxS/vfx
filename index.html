@@ -4,7 +4,7 @@
 
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="/assets/jquery.js"></script>
+    <script src="assets/jquery.js"></script>
     <style>
       body{
         background:black;
@@ -22,7 +22,8 @@
         90% { opacity: 0.56 }
       }
       #player1,
-      #player2{
+      #player2,
+      #vhs_static{
         position:absolute;
         left:0;
         top:0;
@@ -30,15 +31,17 @@
       #player1{
       }
       #player2{
-        opacity: 0.5;
         -moz-animation: fade 20s ease infinite;
+      }
+      #vhs_static{
+        -moz-animation: fade 180s ease infinite;
       }
     </style>
   </head>
   <body>
-    <!-- https://www.youtube.com/watch?v=6zoJavBcU5o -->
     <div id="player1"></div>
     <div id="player2"></div>
+    <div id="vhs_static"></div>
 
     <script>
       var tag = document.createElement('script');
@@ -49,6 +52,7 @@
 
       var player1;
       var player2;
+      var vhs_static;
 
       function onYouTubeIframeAPIReady() {
         player1 = new YT.Player('player1', {
@@ -90,6 +94,25 @@
           events: {
             'onReady': onPlayerReady2,
             'onStateChange': onPlayerStateChange
+          }
+        });
+        vhs_static = new YT.Player('vhs_static', {
+          height: window.innerHeight,
+          width: window.innerWidth,
+          playerVars: 
+          {
+            listType:'playlist',
+            list: 'PLTZu_i5Q06qCbogWL2EzhXO7gKi2NFNfB',
+            controls: 0,
+            cc_load_policy: 0,
+            iv_load_policy: 0,
+            modestbranding: 1,
+            showinfo: 0,
+            disablekb: 1,
+            loop: 1,
+          },
+          events: {
+            'onReady': onPlayerReady1
           }
         });
       }
