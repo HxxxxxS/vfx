@@ -112,7 +112,8 @@
             loop: 1,
           },
           events: {
-            'onReady': onPlayerReady1
+            'onReady': onPlayerReady1,
+            'onStateChange': onPlayerStateChange
           }
         });
       }
@@ -130,6 +131,12 @@
       function onPlayerStateChange(event) {
         event.target.mute();
         event.target.setPlaybackQuality('large');
+        console.log(event.target.h.id, event.target.getPlayerState());
+        if([1,2].indexOf(event.target.getPlayerState()) > -1){
+          document.querySelector('#' + event.target.h.id).style.display = 'initial';
+        }else{
+          document.querySelector('#' + event.target.h.id).style.display = 'none';
+        }
       }
 
       function stopVideo(player) {
@@ -152,7 +159,7 @@
 
       $(document).on('keydown', function(e){
         var keyCode = e.keyCode || e.which;
-        console.log(e);
+        // console.log(e);
         var player = (e.shiftKey || e.ctrlKey ? player1 : player2);
 
         if(keyCode == 78){ // N
