@@ -5,8 +5,11 @@ function updateSettings() {
     for (var i = wcSettings.length - 1; i >= 0; i--) {
         var t = wcSettings[i];
         if(t.dataset.type == 'filter'){
-            filterstring += t.name + '(' + t.value + ')';
-            if(t.value != localStorage[t.dataset.type + t.name]) {
+            if(t.type == 'checkbox'){
+                filterstring += t.name + '(' + (t.checked? 1 : 0) + ')';
+                localStorage[t.parentElement.id + t.dataset.type + t.name] = t.checked ? 1 : 0;
+            }else{
+                filterstring += t.name + '(' + t.value + ')';
                 localStorage[t.parentElement.id + t.dataset.type + t.name] = t.value;
             }
         }
