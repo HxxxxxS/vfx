@@ -4,64 +4,7 @@
 
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="assets/jquery.js"></script>
-    <style>
-      @keyframes backgroundrotate {
-        0% { background-color: #F42427; }
-        20% { background-color: #FC18F1; }
-        40% { background-color: #3A75F3; }
-        60% { background-color: #81FA7B; }
-        80% { background-color: #FFFF7F; }
-        100% { background-color: #F42427; }
-      }
-      body{
-        background:black;
-        cursor: none !important;
-        overflow:hidden;
-        /* animation: backgroundrotate 20s ease infinite; */
-      }
-      *{
-        cursor: none !important;
-      }
-      @keyframes fade {
-        0%{ opacity: 0.4 }
-        10% { opacity: 0.23 }
-        25% { opacity: 0.5 }
-        50% { opacity: 0.15 }
-        74% { opacity: 0.4 }
-        90% { opacity: 0.56 }
-      }
-      #webcam,
-      #background,
-      #videos,
-      #vhs_static{
-        position: absolute;
-        left: 0;
-        top: 0;
-        pointer-events: none;
-      }
-      #webcam{
-        object-fit: fill;;
-        mix-blend-mode: darken;
-        animation: fade 9s ease infinite;
-        filter: brightness(100) contrast(25) opacity(0.25);
-        transform: rotate(180deg);
-      }
-      #background{
-      }
-      #videos{
-        animation: fade 21s ease infinite;
-      }
-      #vhs_static{
-        mix-blend-mode: overlay;
-        animation: fade 7s ease infinite;
-      }
-      .hidden{
-        position: absolute !important;
-        top: -99999px !important;
-        left: -999999px !important;
-      }
-    </style>
+    <link rel="stylesheet" href="assets/style.css">
   </head>
   <body>
     <div id="background" class="hidden"></div>
@@ -69,97 +12,11 @@
     <div id="videos" class="hidden"></div>
     <div id="vhs_static" class="hidden"></div>
 
+    <script src="assets/jquery.js"></script>
     <script>
       var background;
-      var webcam = document.querySelector("#webcam");
       var videos;
       var vhs_static;
-
-      var tag = document.createElement('script');
-
-      tag.src = "https://www.youtube.com/iframe_api";
-      var firstScriptTag = document.getElementsByTagName('script')[0];
-      firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-
-      function setupWebcam(name) {
-        name.style.height = window.innerHeight + 'px';
-        name.style.width = window.innerWidth + 'px';
-
-        if (navigator.mediaDevices.getUserMedia) {
-          navigator.mediaDevices.getUserMedia({video: true})
-          .then(function(stream) {
-            name.srcObject = stream;
-          })
-          .catch(function(err0r) {
-            console.log("Something went wrong!");
-          });
-        }
-      }
-
-      function setupPlayer(name, playlist) {
-        return new YT.Player(name, {
-          height: window.innerHeight,
-          width: window.innerWidth,
-          playerVars: 
-          {
-            listType:'playlist',
-            list: playlist,
-            controls: 0,
-            cc_load_policy: 0,
-            iv_load_policy: 0,
-            modestbranding: 1,
-            showinfo: 0,
-            disablekb: 1,
-            loop: 1
-          },
-          events: {
-            'onReady': onPlayerReady,
-            'onStateChange': onPlayerStateChange
-          }
-        });
-      }
-
-      function onYouTubeIframeAPIReady() {
-        setupWebcam(webcam);
-        background = setupPlayer('background', 'PLTZu_i5Q06qBtm3XlJZm_WuViWJDF1l9h');
-        videos = setupPlayer('videos', 'PLTZu_i5Q06qCtR4GwHMZIMQq-F1E4YBT9');
-        vhs_static = setupPlayer('vhs_static', 'PLTZu_i5Q06qCbogWL2EzhXO7gKi2NFNfB');
-      }
-
-      function onPlayerReady(event) {
-        event.target.playVideo();
-      }
-
-      function onPlayerStateChange(event) {
-        event.target.mute();
-        event.target.setPlaybackQuality('large');
-        console.log(event.target.h.id, event.target.getPlayerState());
-        if([1,2].indexOf(event.target.getPlayerState()) > -1){
-          $('#' + event.target.h.id).removeClass('hidden');
-        }else{
-          $('#' + event.target.h.id).addClass('hidden');
-          $('#webcam').removeClass('hidden');
-        }
-      }
-
-      function stopVideo(player) {
-        player.stopVideo();
-      }
-
-      function stop() {
-        background.stopVideo();
-        videos.stopVideo();
-        vhs_static.stopVideo();
-      }
-
-      function next(i)
-      {
-        if(i == 1){
-          background.nextVideo();
-        }else if(i == 2){
-          videos.playVideoAt(Math.floor(Math.random() * videos.getPlaylist().length));
-        }
-      }
 
       $(document).on('keydown', function(e){
         var keyCode = e.keyCode || e.which;
@@ -183,5 +40,7 @@
         }
       });
     </script>
+    <script src="assets/webcam.js"></script>
+    <script src="assets/youtube.js"></script>
   </body>
 </html>
