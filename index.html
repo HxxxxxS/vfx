@@ -6,14 +6,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="assets/jquery.js"></script>
     <style>
+      @keyframes backgroundrotate {
+        0% { background-color: #F42427; }
+        20% { background-color: #FC18F1; }
+        40% { background-color: #3A75F3; }
+        60% { background-color: #81FA7B; }
+        80% { background-color: #FFFF7F; }
+        100% { background-color: #F42427; }
+      }
       body{
         background:black;
         cursor: none !important;
+        overflow:hidden;
+        /* animation: backgroundrotate 20s ease infinite; */
       }
       *{
         cursor: none !important;
       }
-      @-moz-keyframes fade {
+      @keyframes fade {
         0%{ opacity: 0.4 }
         10% { opacity: 0.23 }
         25% { opacity: 0.5 }
@@ -21,48 +31,79 @@
         74% { opacity: 0.4 }
         90% { opacity: 0.56 }
       }
-      #player1,
-      #player2,
+      #webcam,
+      #background,
+      #videos,
       #vhs_static{
-        position:absolute;
-        left:0;
-        top:0;
-        pointer-events:none;
+        position: absolute;
+        left: 0;
+        top: 0;
+        pointer-events: none;
       }
-      #player1{
+      #webcam{
+        object-fit: fill;;
+        mix-blend-mode: darken;
+        animation: fade 9s ease infinite;
+        filter: brightness(100) contrast(25) opacity(0.25);
+        transform: rotate(180deg);
       }
-      #player2{
-        -moz-animation: fade 20s ease infinite;
+      #background{
+      }
+      #videos{
+        animation: fade 21s ease infinite;
       }
       #vhs_static{
-        -moz-animation: fade 180s ease infinite;
+        mix-blend-mode: overlay;
+        animation: fade 7s ease infinite;
+      }
+      .hidden{
+        position: absolute !important;
+        top: -99999px !important;
+        left: -999999px !important;
       }
     </style>
   </head>
   <body>
-    <div id="player1"></div>
-    <div id="player2"></div>
-    <div id="vhs_static"></div>
+    <div id="background" class="hidden"></div>
+    <video id="webcam" autoplay="true"></video>
+    <div id="videos" class="hidden"></div>
+    <div id="vhs_static" class="hidden"></div>
 
     <script>
+      var background;
+      var webcam = document.querySelector("#webcam");
+      var videos;
+      var vhs_static;
+
       var tag = document.createElement('script');
 
       tag.src = "https://www.youtube.com/iframe_api";
       var firstScriptTag = document.getElementsByTagName('script')[0];
       firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
-      var player1;
-      var player2;
-      var vhs_static;
+      function setupWebcam(name) {
+        name.style.height = window.innerHeight + 'px';
+        name.style.width = window.innerWidth + 'px';
 
-      function onYouTubeIframeAPIReady() {
-        player1 = new YT.Player('player1', {
+        if (navigator.mediaDevices.getUserMedia) {
+          navigator.mediaDevices.getUserMedia({video: true})
+          .then(function(stream) {
+            name.srcObject = stream;
+          })
+          .catch(function(err0r) {
+            console.log("Something went wrong!");
+          });
+        }
+      }
+
+      function setupPlayer(name, playlist) {
+        return new YT.Player(name, {
           height: window.innerHeight,
           width: window.innerWidth,
           playerVars: 
           {
             listType:'playlist',
-            list: 'PLTZu_i5Q06qBtm3XlJZm_WuViWJDF1l9h',
+            list: playlist,
             controls: 0,
             cc_load_policy: 0,
             iv_load_policy: 0,
@@ -72,61 +113,21 @@
             loop: 1
           },
           events: {
-            'onReady': onPlayerReady1,
-            'onStateChange': onPlayerStateChange
-          }
-        });
-        player2 = new YT.Player('player2', {
-          height: window.innerHeight,
-          width: window.innerWidth,
-          playerVars: 
-          {
-            listType:'playlist',
-            list: 'PLTZu_i5Q06qCtR4GwHMZIMQq-F1E4YBT9',
-            controls: 0,
-            cc_load_policy: 0,
-            iv_load_policy: 0,
-            modestbranding: 1,
-            showinfo: 0,
-            disablekb: 1,
-            loop: 1,
-            shuffle: 1
-          },
-          events: {
-            'onReady': onPlayerReady2,
-            'onStateChange': onPlayerStateChange
-          }
-        });
-        vhs_static = new YT.Player('vhs_static', {
-          height: window.innerHeight,
-          width: window.innerWidth,
-          playerVars: 
-          {
-            listType:'playlist',
-            list: 'PLTZu_i5Q06qCbogWL2EzhXO7gKi2NFNfB',
-            controls: 0,
-            cc_load_policy: 0,
-            iv_load_policy: 0,
-            modestbranding: 1,
-            showinfo: 0,
-            disablekb: 1,
-            loop: 1,
-          },
-          events: {
-            'onReady': onPlayerReady1,
+            'onReady': onPlayerReady,
             'onStateChange': onPlayerStateChange
           }
         });
       }
 
-
-      function onPlayerReady1(event) {
-        event.target.playVideo();
+      function onYouTubeIframeAPIReady() {
+        setupWebcam(webcam);
+        background = setupPlayer('background', 'PLTZu_i5Q06qBtm3XlJZm_WuViWJDF1l9h');
+        videos = setupPlayer('videos', 'PLTZu_i5Q06qCtR4GwHMZIMQq-F1E4YBT9');
+        vhs_static = setupPlayer('vhs_static', 'PLTZu_i5Q06qCbogWL2EzhXO7gKi2NFNfB');
       }
-      function onPlayerReady2(event) {
+
+      function onPlayerReady(event) {
         event.target.playVideo();
-        event.target.setShuffle(true);
-        //event.target.setPlaybackRate([0.5,1][Math.floor((Math.random() * 2))]);
       }
 
       function onPlayerStateChange(event) {
@@ -134,9 +135,10 @@
         event.target.setPlaybackQuality('large');
         console.log(event.target.h.id, event.target.getPlayerState());
         if([1,2].indexOf(event.target.getPlayerState()) > -1){
-          document.querySelector('#' + event.target.h.id).style.top = '0px';
+          $('#' + event.target.h.id).removeClass('hidden');
         }else{
-          document.querySelector('#' + event.target.h.id).style.top = '-999px';
+          $('#' + event.target.h.id).addClass('hidden');
+          $('#webcam').removeClass('hidden');
         }
       }
 
@@ -145,24 +147,24 @@
       }
 
       function stop() {
-        player1.stopVideo();
-        player2.stopVideo();
+        background.stopVideo();
+        videos.stopVideo();
         vhs_static.stopVideo();
       }
 
       function next(i)
       {
         if(i == 1){
-          player1.nextVideo();
+          background.nextVideo();
         }else if(i == 2){
-          player2.playVideoAt(Math.floor(Math.random() * player2.getPlaylist().length));
+          videos.playVideoAt(Math.floor(Math.random() * videos.getPlaylist().length));
         }
       }
 
       $(document).on('keydown', function(e){
         var keyCode = e.keyCode || e.which;
         // console.log(e);
-        var player = (e.shiftKey || e.ctrlKey ? player1 : player2);
+        var player = (e.shiftKey || e.ctrlKey ? background : videos);
 
         if(keyCode == 78){ // N
           next((e.shiftKey || e.ctrlKey ? 1 : 2));
