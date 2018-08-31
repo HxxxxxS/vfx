@@ -4,165 +4,32 @@
 
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="assets/jquery.js"></script>
-    <style>
-      body{
-        background:black;
-        cursor: none !important;
-      }
-      *{
-        cursor: none !important;
-      }
-      @-moz-keyframes fade {
-        0%{ opacity: 0.4 }
-        10% { opacity: 0.23 }
-        25% { opacity: 0.5 }
-        50% { opacity: 0.15 }
-        74% { opacity: 0.4 }
-        90% { opacity: 0.56 }
-      }
-      #player1,
-      #player2,
-      #vhs_static{
-        position:absolute;
-        left:0;
-        top:0;
-        pointer-events:none;
-      }
-      #player1{
-      }
-      #player2{
-        -moz-animation: fade 20s ease infinite;
-      }
-      #vhs_static{
-        -moz-animation: fade 180s ease infinite;
-      }
-    </style>
+    <link rel="stylesheet" href="assets/style.css">
   </head>
   <body>
-    <div id="player1"></div>
-    <div id="player2"></div>
-    <div id="vhs_static"></div>
+    <div id="background" class="hidden"></div>
+    <video id="webcam" autoplay="true"></video>
+    <div id="videos" class="hidden"></div>
+    <div id="vhs_static" class="hidden"></div>
+    <div id="settings" style="display: none">
+      <section id="wc">
+        <label for="contrast">Webcam contrast</label>
+        <input type="range" min="0" max="3" value="2" step="0.05" class="slider" name="contrast" data-type="filter" onchange="updateSettings();">
+        <label for="brightness">Webcam brightness</label>
+        <input type="range" min="1" max="150" value="10" class="slider" name="brightness" data-type="filter" onchange="updateSettings();">
+      </section>
+    </div>
 
+    <script src="assets/jquery.js"></script>
     <script>
-      var tag = document.createElement('script');
-
-      tag.src = "https://www.youtube.com/iframe_api";
-      var firstScriptTag = document.getElementsByTagName('script')[0];
-      firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-
-      var player1;
-      var player2;
+      var background;
+      var videos;
       var vhs_static;
-
-      function onYouTubeIframeAPIReady() {
-        player1 = new YT.Player('player1', {
-          height: window.innerHeight,
-          width: window.innerWidth,
-          playerVars: 
-          {
-            listType:'playlist',
-            list: 'PLTZu_i5Q06qBtm3XlJZm_WuViWJDF1l9h',
-            controls: 0,
-            cc_load_policy: 0,
-            iv_load_policy: 0,
-            modestbranding: 1,
-            showinfo: 0,
-            disablekb: 1,
-            loop: 1
-          },
-          events: {
-            'onReady': onPlayerReady1,
-            'onStateChange': onPlayerStateChange
-          }
-        });
-        player2 = new YT.Player('player2', {
-          height: window.innerHeight,
-          width: window.innerWidth,
-          playerVars: 
-          {
-            listType:'playlist',
-            list: 'PLTZu_i5Q06qCtR4GwHMZIMQq-F1E4YBT9',
-            controls: 0,
-            cc_load_policy: 0,
-            iv_load_policy: 0,
-            modestbranding: 1,
-            showinfo: 0,
-            disablekb: 1,
-            loop: 1,
-            shuffle: 1
-          },
-          events: {
-            'onReady': onPlayerReady2,
-            'onStateChange': onPlayerStateChange
-          }
-        });
-        vhs_static = new YT.Player('vhs_static', {
-          height: window.innerHeight,
-          width: window.innerWidth,
-          playerVars: 
-          {
-            listType:'playlist',
-            list: 'PLTZu_i5Q06qCbogWL2EzhXO7gKi2NFNfB',
-            controls: 0,
-            cc_load_policy: 0,
-            iv_load_policy: 0,
-            modestbranding: 1,
-            showinfo: 0,
-            disablekb: 1,
-            loop: 1,
-          },
-          events: {
-            'onReady': onPlayerReady1,
-            'onStateChange': onPlayerStateChange
-          }
-        });
-      }
-
-
-      function onPlayerReady1(event) {
-        event.target.playVideo();
-      }
-      function onPlayerReady2(event) {
-        event.target.playVideo();
-        event.target.setShuffle(true);
-        //event.target.setPlaybackRate([0.5,1][Math.floor((Math.random() * 2))]);
-      }
-
-      function onPlayerStateChange(event) {
-        event.target.mute();
-        event.target.setPlaybackQuality('large');
-        console.log(event.target.h.id, event.target.getPlayerState());
-        if([1,2].indexOf(event.target.getPlayerState()) > -1){
-          document.querySelector('#' + event.target.h.id).style.top = '0px';
-        }else{
-          document.querySelector('#' + event.target.h.id).style.top = '-999px';
-        }
-      }
-
-      function stopVideo(player) {
-        player.stopVideo();
-      }
-
-      function stop() {
-        player1.stopVideo();
-        player2.stopVideo();
-        vhs_static.stopVideo();
-      }
-
-      function next(i)
-      {
-        if(i == 1){
-          player1.nextVideo();
-        }else if(i == 2){
-          player2.playVideoAt(Math.floor(Math.random() * player2.getPlaylist().length));
-        }
-      }
 
       $(document).on('keydown', function(e){
         var keyCode = e.keyCode || e.which;
         // console.log(e);
-        var player = (e.shiftKey || e.ctrlKey ? player1 : player2);
+        var player = (e.shiftKey || e.ctrlKey ? background : videos);
 
         if(keyCode == 78){ // N
           next((e.shiftKey || e.ctrlKey ? 1 : 2));
@@ -179,7 +46,13 @@
           var skipTo = Math.floor(Math.random() * player.getDuration());
           player.seekTo(skipTo);
         }
+        if(keyCode == 83){ // S
+          $('#settings').toggle();
+        }
       });
     </script>
+    <script src="assets/webcam.js"></script>
+    <script src="assets/youtube.js"></script>
+    <script src="assets/settings.js"></script>
   </body>
 </html>

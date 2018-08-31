@@ -1,0 +1,56 @@
+
+@keyframes backgroundrotate {
+    0% { background-color: #F42427; }
+    20% { background-color: #FC18F1; }
+    40% { background-color: #3A75F3; }
+    60% { background-color: #81FA7B; }
+    80% { background-color: #FFFF7F; }
+    100% { background-color: #F42427; }
+}
+@keyframes fade {
+    0%{ opacity: 0.4 }
+    10% { opacity: 0.23 }
+    25% { opacity: 0.5 }
+    50% { opacity: 0.15 }
+    74% { opacity: 0.4 }
+    90% { opacity: 0.56 }
+}
+body{
+    background:black;
+    cursor: none !important;
+    overflow:hidden;
+    /* animation: backgroundrotate 20s ease infinite; */
+}
+*{
+    cursor: none !important;
+}
+#webcam,
+#background,
+#videos,
+#vhs_static{
+    position: absolute;
+    left: 0;
+    top: 0;
+    pointer-events: none;
+}
+#webcam{
+    object-fit: fill;;
+    mix-blend-mode: darken;
+    animation: fade 9s ease infinite;
+    filter: brightness(100) contrast(25) opacity(0.25);
+    transform: rotate(180deg);
+}
+#background{
+}
+#videos{
+    animation: fade 21s ease infinite;
+}
+#vhs_static{
+    mix-blend-mode: overlay;
+    animation: fade 7s ease infinite;
+}
+.hidden{
+    position: absolute !important;
+    top: -99999px !important;
+    left: -999999px !important;
+}
