@@ -11,6 +11,14 @@
     <video id="webcam" autoplay="true"></video>
     <div id="videos" class="hidden"></div>
     <div id="vhs_static" class="hidden"></div>
+    <div id="settings" style="display: none">
+      <section id="wc">
+        <label for="contrast">Webcam contrast</label>
+        <input type="range" min="0" max="3" value="2" step="0.05" class="slider" name="contrast" data-type="filter" onchange="updateSettings();">
+        <label for="brightness">Webcam brightness</label>
+        <input type="range" min="1" max="150" value="10" class="slider" name="brightness" data-type="filter" onchange="updateSettings();">
+      </section>
+    </div>
 
     <script src="assets/jquery.js"></script>
     <script>
@@ -38,9 +46,13 @@
           var skipTo = Math.floor(Math.random() * player.getDuration());
           player.seekTo(skipTo);
         }
+        if(keyCode == 83){ // S
+          $('#settings').toggle();
+        }
       });
     </script>
     <script src="assets/webcam.js"></script>
     <script src="assets/youtube.js"></script>
+    <script src="assets/settings.js"></script>
   </body>
 </html>

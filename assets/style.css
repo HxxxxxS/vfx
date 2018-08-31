@@ -7,6 +7,13 @@
     80% { background-color: #FFFF7F; }
     100% { background-color: #F42427; }
 }
+@keyframes blendmode {
+    0% { mix-blend-mode: darken }
+    25% { mix-blend-mode: difference }
+    50% { mix-blend-mode: lighten }
+    75% { mix-blend-mode: overlay }
+    90% { mix-blend-mode: screen }
+}
 @keyframes fade {
     0%{ opacity: 0.4 }
     10% { opacity: 0.23 }
@@ -36,7 +43,7 @@ body{
 #webcam{
     object-fit: fill;;
     mix-blend-mode: darken;
-    animation: fade 9s ease infinite;
+    animation: blendmode 19s ease infinite;
     filter: brightness(100) contrast(25) opacity(0.25);
     transform: rotate(180deg);
 }
@@ -53,4 +60,18 @@ body{
     position: absolute !important;
     top: -99999px !important;
     left: -999999px !important;
+}
+#settings{
+    background:white;
+    padding:10px 5px;
+    z-index: 999;
+    width: 50%;
+    position: absolute;
+    top: 5%;
+    left: 25%;
+    cursor: initial !important;
+    min-height: 100px;
+}
+#settings *{
+    cursor: initial !important;
 }
