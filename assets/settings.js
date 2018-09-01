@@ -12,9 +12,25 @@ function updateSettings() {
                 filterstring += t.name + '(' + t.value + ')';
                 localStorage[t.parentElement.id + t.dataset.type + t.name] = t.value;
             }
+        }else{
+            $('#'+t.dataset.target).css(t.name,t.value);
         }
     }
     $('#webcam').css('filter', filterstring);
+}
+
+var playing = true;
+
+function playPause() {
+    var vids = [background, videos, vhs_static];
+    for (var i = vids.length - 1; i >= 0; i--) {
+        if(playing) {
+            vids[i].pauseVideo();
+        }else{
+            vids[i].playVideo();
+        }
+    }
+    playing = !playing;
 }
 
 for (var i = wcSettings.length - 1; i >= 0; i--) {
