@@ -12,6 +12,8 @@ function updateSettings() {
                 filterstring += t.name + '(' + t.value + ')';
                 localStorage[t.parentElement.id + t.dataset.type + t.name] = t.value;
             }
+        }else{
+            $('#'+t.dataset.target).css(t.name,t.value);
         }
     }
     $('#webcam').css('filter', filterstring);

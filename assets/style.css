@@ -54,7 +54,7 @@ body{
 }
 #vhs_static{
     mix-blend-mode: overlay;
-    animation: fade 7s ease infinite;
+    animation: fade 13s ease infinite;
 }
 .hidden{
     position: absolute !important;

@@ -14,11 +14,14 @@
     <div id="settings" style="display: none">
       <section id="wc">
         <label for="invert">Invert webcam</label>
-        <input type="checkbox" name="invert" data-type="filter" value="0" onchange="updateSettings();">
+        <input type="checkbox" name="invert" data-type="filter" value="0" data-target="webcam" onchange="updateSettings();">
         <label for="contrast">Webcam contrast</label>
-        <input type="range" min="0" max="3" value="2" step="0.05" class="slider" name="contrast" data-type="filter" onchange="updateSettings();">
+        <input type="range" min="0" max="3" value="2" step="0.05" class="slider" name="contrast" data-type="filter" data-target="webcam" onchange="updateSettings();">
         <label for="brightness">Webcam brightness</label>
-        <input type="range" min="1" max="150" value="10" class="slider" name="brightness" data-type="filter" onchange="updateSettings();">
+        <input type="range" min="1" max="150" value="10" class="slider" name="brightness" data-type="filter" data-target="webcam" onchange="updateSettings();">
+        <br>
+        <label for="opacity">Webcam opacity</label>
+        <input type="range" min="0" max="1" value="0.5" step="0.05" class="slider" name="opacity" data-target="webcam" onchange="updateSettings();">
       </section>
     </div>
 
