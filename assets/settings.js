@@ -19,6 +19,20 @@ function updateSettings() {
     $('#webcam').css('filter', filterstring);
 }
 
+var playing = true;
+
+function playPause() {
+    var vids = [background, videos, vhs_static];
+    for (var i = vids.length - 1; i >= 0; i--) {
+        if(playing) {
+            vids[i].pauseVideo();
+        }else{
+            vids[i].playVideo();
+        }
+    }
+    playing = !playing;
+}
+
 for (var i = wcSettings.length - 1; i >= 0; i--) {
     var t = wcSettings[i];
     if(localStorage[t.dataset.type + t.name]) {
