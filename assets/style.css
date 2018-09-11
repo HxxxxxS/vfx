@@ -42,7 +42,7 @@ body{
     pointer-events: none;
 }
 #webcam{
-    display: block;
+    display: none;
     object-fit: fill;
     mix-blend-mode: darken;
     animation: blendmode 19s ease infinite;

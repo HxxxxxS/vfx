@@ -35,17 +35,31 @@ function onYouTubeIframeAPIReady() {
 
 function onPlayerReady(event) {
     event.target.playVideo();
+    setTimeout(moreParameters, 500);
+}
+
+function moreParameters(){
+    // Sue me
+    background.mute();
+    background.setPlaybackQuality('medium');
+
+    videos.setShuffle(true);
+    videos.mute();
+    videos.setPlaybackQuality('medium');
+
+    vhs_static.setShuffle(true);
+    vhs_static.mute();
+    vhs_static.setPlaybackQuality('medium');
 }
 
 function onPlayerStateChange(event) {
     event.target.mute();
-    event.target.setPlaybackQuality('large');
+    event.target.setPlaybackQuality('medium');
     console.log(event.target.h.id, event.target.getPlayerState());
     if([1,2].indexOf(event.target.getPlayerState()) > -1){
         $('#' + event.target.h.id).removeClass('hidden');
     }else{
         $('#' + event.target.h.id).addClass('hidden');
-        $('#webcam').removeClass('hidden');
     }
 }
 
@@ -59,11 +73,7 @@ function stop() {
     vhs_static.stopVideo();
 }
 
-function next(i)
+function next(player)
 {
-    if(i == 1){
-        background.nextVideo();
-    }else if(i == 2){
-        videos.playVideoAt(Math.floor(Math.random() * videos.getPlaylist().length));
-    }
+    player.nextVideo();
 }
