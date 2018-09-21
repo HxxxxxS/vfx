@@ -36,6 +36,8 @@ body{
 #background,
 #videos,
 #vhs_static{
+     -webkit-transition: width 0.1s, height 0.1s; /* Safari */
+    transition: width 0.1s, height 0.1s;
     position: absolute;
     left: 0;
     top: 0;
@@ -63,6 +65,7 @@ body{
     position: absolute !important;
     top: -99999px !important;
     left: -999999px !important;
+    opacity: 0 !important;
 }
 #settings{
     background:white;
@@ -74,6 +77,7 @@ body{
     left: 25%;
     cursor: initial !important;
     min-height: 100px;
+    display: none;
 }
 #settings *{
     cursor: initial !important;

@@ -14,7 +14,7 @@ function setupPlayer(name, playlist) {
             list: playlist,
             controls: 0,
             cc_load_policy: 0,
-            iv_load_policy: 0,
+            iv_load_policy: 3,
             modestbranding: 1,
             showinfo: 0,
             disablekb: 1,
@@ -31,6 +31,7 @@ function onYouTubeIframeAPIReady() {
     background = setupPlayer('background', 'PLTZu_i5Q06qBtm3XlJZm_WuViWJDF1l9h');
     videos = setupPlayer('videos', 'PLTZu_i5Q06qCtR4GwHMZIMQq-F1E4YBT9');
     vhs_static = setupPlayer('vhs_static', 'PLTZu_i5Q06qCbogWL2EzhXO7gKi2NFNfB');
+    players = [background,videos,vhs_static];
 }
 
 function onPlayerReady(event) {
@@ -40,21 +41,16 @@ function onPlayerReady(event) {
 
 function moreParameters(){
     // Sue me
-    background.mute();
-    background.setPlaybackQuality('medium');
+    for (var i = players.length - 1; i >= 0; i--) {
+        players[i].mute();
+        players[i].setPlaybackQuality('medium');
+    }
 
     videos.setShuffle(true);
-    videos.mute();
-    videos.setPlaybackQuality('medium');
-
     vhs_static.setShuffle(true);
-    vhs_static.mute();
-    vhs_static.setPlaybackQuality('medium');
 }
 
 function onPlayerStateChange(event) {
-    event.target.mute();
-    event.target.setPlaybackQuality('medium');
     console.log(event.target.h.id, event.target.getPlayerState());
     if([1,2].indexOf(event.target.getPlayerState()) > -1){
         $('#' + event.target.h.id).removeClass('hidden');
