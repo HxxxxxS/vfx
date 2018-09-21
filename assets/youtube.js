@@ -32,6 +32,7 @@ function onYouTubeIframeAPIReady() {
     videos = setupPlayer('videos', 'PLTZu_i5Q06qCtR4GwHMZIMQq-F1E4YBT9');
     vhs_static = setupPlayer('vhs_static', 'PLTZu_i5Q06qCbogWL2EzhXO7gKi2NFNfB');
     players = [background,videos,vhs_static];
+    $('#settings-info').css('opacity',0)
 }
 
 function onPlayerReady(event) {
@@ -45,17 +46,23 @@ function moreParameters(){
         players[i].mute();
         players[i].setPlaybackQuality('medium');
     }
-
     videos.setShuffle(true);
     vhs_static.setShuffle(true);
 }
+
+var error;
 
 function onPlayerStateChange(event) {
     console.log(event.target.h.id, event.target.getPlayerState());
     if([1,2].indexOf(event.target.getPlayerState()) > -1){
         $('#' + event.target.h.id).removeClass('hidden');
+        clearTimeout(error);
     }else{
         $('#' + event.target.h.id).addClass('hidden');
+        error = setTimeout(function(event) {
+            console.log('error: Video did not load for 10 seconds:', event.target.getVideoUrl());
+            $('#settings #errors').append('<li><b>Error:</b> Video did not load for 10 seconds: <a href="'+event.target.getVideoUrl()+'">'+event.target.getVideoUrl()+'</a></li>')
+        }, 10000);
     }
 }
 

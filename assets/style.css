@@ -82,3 +82,15 @@ body{
 #settings *{
     cursor: initial !important;
 }
+#settings-info{
+     -webkit-transition: opacity 2s; /* Safari */
+    transition: opacity 2s;
+    background:#fff;
+    border-radius: 5px;
+    opacity: 1;
+    position: relative;
+    margin: 100px auto;
+    width: 222px;
+    padding: 5px 10px;
+    text-align: center;
+}

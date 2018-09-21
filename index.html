@@ -37,9 +37,13 @@
             <li><b>Space</b>: Skip to random point in video.</li>
           </ul>
         </p>
+        <p>Source code available at <a href="https://github.com/HxxxxxS/vfx">https://github.com/HxxxxxS/vfx</a></p>
+        <ul id="errors"></ul>
       </section>
     </div>
-
+    <div id="settings-info">
+      <p>Press <b>S</b> to toggle settings</p>
+    </div>
     <script src="assets/jquery.js"></script>
     <script>
       var background;
@@ -69,8 +73,10 @@
         }
         if(keyCode == 83){ // S
           $('#settings').toggle();
+          $('settings-info').remove();
         }
       });
+      setTimeout(function(){$('#settings-info').css('opacity',0)},2500);
       var resize;
       $(window).on('resize', function(e) {
         clearTimeout(resize);
