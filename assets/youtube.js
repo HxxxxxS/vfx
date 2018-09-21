@@ -37,7 +37,7 @@ function onYouTubeIframeAPIReady() {
 
 function onPlayerReady(event) {
     event.target.playVideo();
-    setTimeout(moreParameters, 500);
+    setTimeout(moreParameters, 1000);
 }
 
 function moreParameters(){
@@ -61,7 +61,8 @@ function onPlayerStateChange(event) {
         $('#' + event.target.h.id).addClass('hidden');
         error = setTimeout(function(event) {
             console.log('error: Video did not load for 10 seconds:', event.target.getVideoUrl());
-            $('#settings #errors').append('<li><b>Error:</b> Video did not load for 10 seconds: <a href="'+event.target.getVideoUrl()+'">'+event.target.getVideoUrl()+'</a></li>')
+            $('#settings #errors').append('<li><b>Error:</b> Video did not load for 10 seconds: <a href="'+event.target.getVideoUrl()+'">'+event.target.getVideoUrl()+'</a></li>');
+            event.target.nextVideo();
         }, 10000);
     }
 }
