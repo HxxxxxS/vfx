@@ -55,9 +55,20 @@ function onPlayerStateChange(event) {
     var target = event.target;
     var id = target.h.id;
     console.log(id, target.getPlayerState());
+    var url = new URL(target.getVideoUrl());
+    var videoId = url.searchParams.get('v');
 
     if([1,2].indexOf(target.getPlayerState()) > -1){
         $('#' + id).removeClass('hidden');
+        if(times[videoId]){
+            if(times[videoId]['start'] > target.getCurrentTime()){
+                target.seekTo(times[videoId]['start']);
+                console.log(id,'skipping to', times[videoId]['start']);
+            }else if(times[videoId]['end'] < target.getCurrentTime()){
+                target.nextVideo();
+                console.log(id,'skipping outro');
+            }
+        }
     }else{
         $('#' + id).addClass('hidden');
     }

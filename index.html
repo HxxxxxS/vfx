@@ -50,6 +50,11 @@
       var videos;
       var vhs_static;
       var players;
+      var times;
+
+      $.getJSON('data/times.json', function(data){
+        times = data;
+      });
 
       $(document).on('keydown', function(e){
         var keyCode = e.keyCode || e.which;
