@@ -1,5 +1,6 @@
 
 @keyframes backgroundrotate {
+    10%,20%,30%,50%,70%,90%{ background-color: #000000 }
     0% { background-color: #F42427; background-color: #6E2728 }
     20% { background-color: #FC18F1; background-color: #5F295C }
     40% { background-color: #3A75F3; background-color: #2A3D65 }
@@ -34,7 +35,7 @@ body{
     background:black;
     cursor: none !important;
     overflow:hidden;
-    animation: backgroundrotate 151s ease infinite;
+    animation: backgroundrotate 51s ease infinite;
 }
 *{
     cursor: none !important;
