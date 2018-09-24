@@ -1,7 +1,7 @@
+<!-- PoC thrown together before a party. Please don't judge the quality my code -->
 <!DOCTYPE html>
 <html>
   <head>
-
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="assets/style.css">
@@ -11,7 +11,8 @@
     <video id="webcam" autoplay="true"></video>
     <div id="videos" class="hidden"></div>
     <div id="vhs_static" class="hidden"></div>
-    <div id="settings" style="display: none">
+    <div id="settings">
+      <h4>Settings</h4>
       <section id="wc">
         <label for="invert">Invert webcam</label>
         <input type="checkbox" name="invert" data-type="filter" value="0" data-target="webcam" onchange="updateSettings();">
@@ -23,14 +24,32 @@
         <label for="opacity">Webcam opacity</label>
         <input type="range" min="0" max="1" value="0.5" step="0.05" class="slider" name="opacity" data-target="webcam" onchange="updateSettings();">
         <button onclick="playPause()">Play/pause</button>
+        <button onclick="toggleWebcam()">Webcam on/off</button>
+      </section>
+      <section id="text">
+        <p>Press <b>S</b> to toggle settings</p>
+        <p>
+          <b>Video hotkeys:</b>
+          <p><b>Shift</b> or <b>CTRL</b>-modifier selects background layer instead of top layer</p>
+          <ul>
+            <li><b>N</b>: Next video</li>
+            <li><b>K</b>: Play/pause</li>
+            <li><b>Space</b>: Skip to random point in video.</li>
+          </ul>
+        </p>
+        <p>Source code available at <a href="https://github.com/HxxxxxS/vfx">https://github.com/HxxxxxS/vfx</a></p>
+        <ul id="errors"></ul>
       </section>
     </div>
-
+    <div id="settings-info">
+      <p>Press <b>S</b> to toggle settings</p>
+    </div>
     <script src="assets/jquery.js"></script>
     <script>
       var background;
       var videos;
       var vhs_static;
+      var players;
 
       $(document).on('keydown', function(e){
         var keyCode = e.keyCode || e.which;
@@ -38,7 +57,7 @@
         var player = (e.shiftKey || e.ctrlKey ? background : videos);
 
         if(keyCode == 78){ // N
-          next((e.shiftKey || e.ctrlKey ? 1 : 2));
+          next(player);
         }
 
         if(keyCode == 75){ // K
@@ -54,7 +73,21 @@
         }
         if(keyCode == 83){ // S
           $('#settings').toggle();
+          $('settings-info').remove();
         }
+      });
+      setTimeout(function(){$('#settings-info').css('opacity',0)},2500);
+      var resize;
+      $(window).on('resize', function(e) {
+        clearTimeout(resize);
+        resize = setTimeout(function(){
+          for (var i = players.length - 1; i >= 0; i--) {
+              $('#'+players[i].h.id).css('height',window.innerHeight + 'px');
+              $('#'+players[i].h.id).css('width',window.innerWidth + 'px');
+          }
+          webcam.style.height = window.innerHeight + 'px';
+          webcam.style.width = window.innerWidth + 'px';
+        }, 50);
       });
     </script>
     <script src="assets/webcam.js"></script>

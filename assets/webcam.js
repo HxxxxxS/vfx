@@ -1,4 +1,5 @@
 var webcam = document.querySelector("#webcam");
+var wc_status = false;
 
 function setupWebcam(name) {
     name.style.height = window.innerHeight + 'px';
@@ -10,9 +11,17 @@ function setupWebcam(name) {
             name.srcObject = stream;
         })
         .catch(function(err0r) {
-            console.log("Something went wrong!");
+            console.log("Something went wrong!", err0r);
         });
     }
 }
 
-setupWebcam(webcam);
+function toggleWebcam() {
+    if(!webcam.srcObject){
+        setupWebcam(webcam);
+    }else{
+        navigator.mediaDevices.getUserMedia({video: false})
+    }
+    wc_status = !wc_status;
+    webcam.style.display = (wc_status ? 'block' : 'none');
+}
