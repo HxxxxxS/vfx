@@ -50,20 +50,15 @@ function moreParameters(){
     vhs_static.setShuffle(true);
 }
 
-var error;
-
 function onPlayerStateChange(event) {
-    console.log(event.target.h.id, event.target.getPlayerState());
-    if([1,2].indexOf(event.target.getPlayerState()) > -1){
-        $('#' + event.target.h.id).removeClass('hidden');
-        clearTimeout(error);
+    var target = event.target;
+    var id = target.h.id;
+    console.log(id, target.getPlayerState());
+
+    if([1,2].indexOf(target.getPlayerState()) > -1){
+        $('#' + id).removeClass('hidden');
     }else{
-        $('#' + event.target.h.id).addClass('hidden');
-        error = setTimeout(function(event) {
-            console.log('error: Video did not load for 10 seconds:', event.target.getVideoUrl());
-            $('#settings #errors').append('<li><b>Error:</b> Video did not load for 10 seconds: <a href="'+event.target.getVideoUrl()+'">'+event.target.getVideoUrl()+'</a></li>');
-            event.target.nextVideo();
-        }, 10000);
+        $('#' + id).addClass('hidden');
     }
 }
 
