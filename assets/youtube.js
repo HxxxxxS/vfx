@@ -45,7 +45,7 @@ function moreParameters(){
     // Sue me
     for (var i = players.length - 1; i >= 0; i--) {
         players[i].mute();
-        players[i].setPlaybackQuality('medium');
+        players[i].setPlaybackQuality('small');
     }
     videos.setShuffle(true);
     vhs_static.setShuffle(true);
