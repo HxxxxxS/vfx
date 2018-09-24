@@ -22,7 +22,8 @@ function setupPlayer(name, playlist) {
         },
         events: {
             'onReady': onPlayerReady,
-            'onStateChange': onPlayerStateChange
+            'onStateChange': onPlayerStateChange,
+            'onError': onPlayerError
         }
     });
 }
@@ -60,6 +61,13 @@ function onPlayerStateChange(event) {
     }else{
         $('#' + id).addClass('hidden');
     }
+}
+
+function onPlayerError(event) {
+    var target = event.target;
+    var id = target.h.id;
+    console.log(id, 'error:', event.data, target.getVideoUrl(), 'did not load');
+    $('#settings #errors').append('<li><b>Error:</b> <a href="'+target.getVideoUrl()+'">'+target.getVideoUrl()+'</a> threw error '+event.data+'</li>');
 }
 
 function stopVideo(player) {
