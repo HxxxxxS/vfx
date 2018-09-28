@@ -57,7 +57,6 @@ body{
     mix-blend-mode: darken;
     animation: blendmode 19s ease infinite;
     filter: brightness(100) contrast(25) opacity(0.25);
-    transform: rotate(180deg);
 }
 #background{
     animation: blendmode 47s linear infinite;

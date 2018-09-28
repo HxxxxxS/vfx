@@ -16,6 +16,8 @@
       <section id="wc">
         <label for="invert">Invert webcam</label>
         <input type="checkbox" name="invert" data-type="filter" value="0" data-target="webcam" onchange="updateSettings();">
+        <label for="rotate">Flip webcam</label>
+        <input type="checkbox" name="rotate" value="0" data-target="webcam" onchange="updateSettings();">
         <label for="contrast">Webcam contrast</label>
         <input type="range" min="0" max="3" value="2" step="0.05" class="slider" name="contrast" data-type="filter" data-target="webcam" onchange="updateSettings();">
         <label for="brightness">Webcam brightness</label>
