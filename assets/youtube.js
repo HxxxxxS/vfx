@@ -57,18 +57,22 @@ function onPlayerStateChange(event) {
     var url = new URL(target.getVideoUrl());
     var videoId = url.searchParams.get('v');
 
-    if([1,2].indexOf(target.getPlayerState()) > -1){
+    if(target.getPlayerState() == 1){
         $('#' + id).removeClass('hidden');
         if(times[videoId]){
             if(times[videoId]['start'] > target.getCurrentTime()){
                 target.seekTo(times[videoId]['start']);
                 console.log(id,'skipping to', times[videoId]['start']);
-            }else if(times[videoId]['end'] < target.getCurrentTime()){
-                target.nextVideo();
-                console.log(id,'skipping outro');
+            }else if(times[videoId]['end']){
+                var timer = times[videoId]['end'] - target.getCurrentTime();
+                clearTimeout(window[id].out);
+                window[id].out = setTimeout(function(){
+                    next(target);
+                }, timer * 1000);
+                console.log(id, 'will be skipped in', timer);
             }
         }
-    }else{
+    }else if(target.getPlayerState() != 2){
         $('#' + id).addClass('hidden');
     }
 }
