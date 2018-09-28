@@ -89,6 +89,9 @@ body{
 #settings *{
     cursor: initial !important;
 }
+#settings [data-target="webcam"]{
+    display:none;
+}
 #settings-info{
      -webkit-transition: opacity 2s; /* Safari */
     transition: opacity 2s;

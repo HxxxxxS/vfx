@@ -13,21 +13,23 @@
     <div id="vhs_static" class="hidden"></div>
     <div id="settings">
       <h4>Settings</h4>
+      <button onclick="playPause()">Play/pause all video</button>
       <section id="wc">
-        <label for="invert">Invert webcam</label>
-        <input type="checkbox" name="invert" data-type="filter" value="0" data-target="webcam" onchange="updateSettings();">
-        <label for="rotate">Flip webcam</label>
-        <input type="checkbox" name="rotate" value="0" data-target="webcam" onchange="updateSettings();">
-        <label for="contrast">Webcam contrast</label>
-        <input type="range" min="0" max="3" value="2" step="0.05" class="slider" name="contrast" data-type="filter" data-target="webcam" onchange="updateSettings();">
-        <label for="brightness">Webcam brightness</label>
-        <input type="range" min="1" max="150" value="10" class="slider" name="brightness" data-type="filter" data-target="webcam" onchange="updateSettings();">
-        <br>
-        <label for="opacity">Webcam opacity</label>
-        <input type="range" min="0" max="1" value="0.5" step="0.05" class="slider" name="opacity" data-target="webcam" onchange="updateSettings();">
-        <button onclick="playPause()">Play/pause</button>
+        <p>Webcam settings:</p>
         <button onclick="toggleWebcam()">Webcam on/off</button>
+        <input type="checkbox" name="invert" data-type="filter" value="0" data-target="webcam" onchange="updateSettings();">
+        <label for="invert" data-target="webcam">Invert webcam colors</label>
+        <input type="checkbox" name="rotate" value="0" data-target="webcam" onchange="updateSettings();">
+        <label for="rotate" data-target="webcam">Flip webcam</label>
+        <br>
+        <label for="contrast" data-target="webcam">Contrast:</label>
+        <input type="range" min="0" max="3" value="2" step="0.05" class="slider" name="contrast" data-type="filter" data-target="webcam" onchange="updateSettings();">
+        <label for="brightness" data-target="webcam">Brightness:</label>
+        <input type="range" min="1" max="150" value="10" class="slider" name="brightness" data-type="filter" data-target="webcam" onchange="updateSettings();">
+        <label for="opacity" data-target="webcam">Opacity:</label>
+        <input type="range" min="0" max="1" value="0.5" step="0.05" class="slider" name="opacity" data-target="webcam" onchange="updateSettings();">
       </section>
+      <hr>
       <section id="text">
         <p>Press <b>S</b> to toggle settings</p>
         <p>
@@ -39,6 +41,9 @@
             <li><b>Space</b>: Skip to random point in video.</li>
           </ul>
         </p>
+      </section>
+      <hr>
+      <section id="footer">
         <p>Source code available at <a href="https://github.com/HxxxxxS/vfx">https://github.com/HxxxxxS/vfx</a></p>
         <ul id="errors"></ul>
       </section>

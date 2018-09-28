@@ -23,5 +23,9 @@ function toggleWebcam() {
         navigator.mediaDevices.getUserMedia({video: false})
     }
     wc_status = !wc_status;
-    webcam.style.display = (wc_status ? 'block' : 'none');
+    if(wc_status){
+        $('#settings [data-target="webcam"], #webcam').show();
+    }else{
+        $('#settings [data-target="webcam"], #webcam').hide();
+    }
 }
