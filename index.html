@@ -1,6 +1,6 @@
 <!-- PoC thrown together before a party. Please don't judge the quality my code -->
 <!DOCTYPE html>
-<html>
+<html class="nocursor">
   <head>
     <meta charset="utf-8" />
     <title>VFX Generator</title>
@@ -85,22 +85,26 @@
           player.seekTo(skipTo);
         }
         if(keyCode == 83){ // S
+          $('html').toggleClass('nocursor');
           $('#settings').toggle();
           $('settings-info').remove();
         }
       });
       setTimeout(function(){$('#settings-info').css('opacity',0)},2500);
-      var resize;
-      $(window).on('resize', function(e) {
+      function resize(){
+        document.querySelector('body').style.height = window.innerHeight + 'px';
+        document.querySelector('body').style.width = window.innerWidth + 'px';
+        for (var i = players.length - 1; i >= 0; i--) {
+            $('#'+players[i].h.id).css('height',window.innerHeight + 'px');
+            $('#'+players[i].h.id).css('width',window.innerWidth + 'px');
+        }
+        webcam.style.height = window.innerHeight + 'px';
+        webcam.style.width = window.innerWidth + 'px';
+      }
+      var resizeTimer;
+      $(window).on('load resize', function(e) {
         clearTimeout(resize);
-        resize = setTimeout(function(){
-          for (var i = players.length - 1; i >= 0; i--) {
-              $('#'+players[i].h.id).css('height',window.innerHeight + 'px');
-              $('#'+players[i].h.id).css('width',window.innerWidth + 'px');
-          }
-          webcam.style.height = window.innerHeight + 'px';
-          webcam.style.width = window.innerWidth + 'px';
-        }, 50);
+        resizeTimer = setTimeout(resize, 50);
       });
     </script>
     <script src="assets/webcam.js"></script>
