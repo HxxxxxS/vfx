@@ -33,12 +33,12 @@
 }
 body{
     background:black;
-    cursor: none !important;
     overflow:hidden;
     animation: backgroundrotate 51s ease infinite;
 }
-*{
-    cursor: none !important;
+html.nocursor,
+html.nocursor *{
+    cursor: url(assets/blank.png), none !important;
 }
 #webcam,
 #background,
