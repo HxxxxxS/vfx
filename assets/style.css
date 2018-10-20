@@ -13,7 +13,7 @@
     25% { mix-blend-mode: difference }
     50% { mix-blend-mode: lighten }
     75% { mix-blend-mode: overlay }
-    90% { mix-blend-mode: none }
+    90% { mix-blend-mode: difference }
 }
 @keyframes fade {
     0%{ opacity: 0.4 }
@@ -63,7 +63,7 @@ body.rotate #background{
     animation: blendmode 47s linear infinite;
 }
 #videos{
-    animation: fade 21s ease infinite;
+    animation: blendmode 21s ease infinite, fade 37s ease infinite;
 }
 #vhs_static{
     mix-blend-mode: overlay;
