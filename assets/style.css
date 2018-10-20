@@ -34,6 +34,8 @@
 body{
     background:black;
     overflow:hidden;
+}
+body.rotate{
     animation: backgroundrotate 51s ease infinite;
 }
 html.nocursor,
@@ -58,7 +60,7 @@ html.nocursor *{
     animation: blendmode 19s ease infinite;
     filter: brightness(100) contrast(25) opacity(0.25);
 }
-#background{
+body.rotate #background{
     animation: blendmode 47s linear infinite;
 }
 #videos{

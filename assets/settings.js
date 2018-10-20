@@ -1,9 +1,7 @@
-var wcSettings = $('#settings #wc input');
-
 function updateSettings() {
     var filterstring = '';
-    for (var i = wcSettings.length - 1; i >= 0; i--) {
-        var t = wcSettings[i];
+    for (var i = $('#settings #wc input').length - 1; i >= 0; i--) {
+        var t = $('#settings #wc input')[i];
         if(t.dataset.type == 'filter'){
             if(t.type == 'checkbox'){
                 filterstring += t.name + '(' + (t.checked? 1 : 0) + ')';
@@ -21,6 +19,8 @@ function updateSettings() {
         }
     }
     $('#webcam').css('filter', filterstring);
+    ($('#settings #bg input[name="bgrotate"]')[0].checked ? $('body').addClass('rotate') : $('body').removeClass('rotate'));
+    localStorage['bginputbgrotate'] = $('#settings #bg input[name="bgrotate"]')[0].checked;
 }
 
 var playing = true;
@@ -37,10 +37,14 @@ function playPause() {
     playing = !playing;
 }
 
-for (var i = wcSettings.length - 1; i >= 0; i--) {
-    var t = wcSettings[i];
-    if(localStorage[t.dataset.type + t.name]) {
-        t.value = localStorage[t.parentElement.id + t.dataset.type + t.name];
+for (var i = $('#settings input').length - 1; i >= 0; i--) {
+    var t = $('#settings input')[i];
+    if(localStorage[t.parentElement.id + t.dataset.type + t.name]) {
+        if(t.dataset.type = 'checkbox'){
+            t.checked = localStorage[t.parentElement.id + t.dataset.type + t.name];
+        }else{
+            t.value = localStorage[t.parentElement.id + t.dataset.type + t.name];
+        }
     }
 }
 updateSettings();
