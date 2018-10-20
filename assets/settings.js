@@ -19,8 +19,12 @@ function updateSettings() {
         }
     }
     $('#webcam').css('filter', filterstring);
-    ($('#settings #bg input[name="bgrotate"]')[0].checked ? $('body').addClass('rotate') : $('body').removeClass('rotate'));
-    localStorage['bginputbgrotate'] = $('#settings #bg input[name="bgrotate"]')[0].checked;
+
+    ($('#settings #body input[name="bgrotate"]')[0].checked ? $('body').addClass('rotate') : $('body').removeClass('rotate'));
+    localStorage['bginputbgrotate'] = $('#settings #body input[name="bgrotate"]')[0].checked;
+
+    ($('#settings #static input[name="static_layer"]')[0].checked ? vhs_static.playVideo() : vhs_static.stopVideo());
+    localStorage['staticinputstatic_layer'] = $('#settings #static input[name="static_layer"]')[0].checked;
 }
 
 var playing = true;
@@ -47,4 +51,3 @@ for (var i = $('#settings input').length - 1; i >= 0; i--) {
         }
     }
 }
-updateSettings();

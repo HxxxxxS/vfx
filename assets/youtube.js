@@ -1,4 +1,6 @@
 var tag = document.createElement('script');
+var times = [];
+var players = [];
 
 tag.src = "https://www.youtube.com/iframe_api";
 var firstScriptTag = document.getElementsByTagName('script')[0];
@@ -48,6 +50,7 @@ function moreParameters(){
         players[i].setShuffle(true);
         players[i].setPlaybackQuality('small');
     }
+    updateSettings();
 }
 
 function onPlayerStateChange(event) {
