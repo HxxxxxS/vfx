@@ -32,9 +32,14 @@
         <input type="range" min="0" max="1" value="0.5" step="0.05" class="slider" name="opacity" data-target="webcam" onchange="updateSettings();">
       </section>
       <hr>
-      <section id="bg">
+      <section id="body">
         <label for="bgrotate">Enable background color rotation animation (slightly CPU exhaustive)</label>
-        <input type="checkbox" name="bgrotate" data-target="background" onchange="updateSettings()" checked>
+        <input type="checkbox" name="bgrotate" data-target="body" onchange="updateSettings()" checked>
+      </section>
+      <hr>
+      <section id="static">
+        <label for="static_layer">Enable vhs static noise (adds a third youtube video layer, slightly CPU exhaustive)</label>
+        <input type="checkbox" name="static_layer" data-target="vhs_static" onchange="updateSettings()" checked>
       </section>
       <hr>
       <section id="text">
