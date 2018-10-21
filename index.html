@@ -46,11 +46,11 @@
         <p>Press <b>S</b> to toggle settings</p>
         <p>
           <b>Video hotkeys:</b>
-          <p><b>Shift</b> or <b>CTRL</b>-modifier selects background layer instead of top layer</p>
+          <p><b>Shift</b>-modifier selects background layer instead of top layer</p>
           <ul>
             <li><b>N</b>: Next video</li>
             <li><b>K</b>: Play/pause</li>
-            <li><b>Space</b>: Skip to random point in video.</li>
+            <li><b>R</b>: Skip to random point in video.</li>
           </ul>
         </p>
       </section>
@@ -78,7 +78,35 @@
       $(document).on('keydown', function(e){
         var keyCode = e.keyCode || e.which;
         // console.log(e);
-        var player = (e.shiftKey || e.ctrlKey ? background : videos);
+        var player = (e.shiftKey ? background : videos);
+
+        if(keyCode == 32){ // Space
+          if((Date.now() / 1000) - (taps[0] / 1000) > 3){ // Reset after 3 seconds
+            taps.splice(0);
+            tempo = 100;
+          }
+
+          taps.unshift(Date.now());
+          taps.length = 16;
+          var temptempo = [];
+
+          for (var i = taps.length - 1; i >= 0; i--) {
+            if(taps[i]){
+              if(taps[i-1]){
+                temptempo.push(taps[i-1] - taps[i]);
+              }
+            }
+          }
+
+          if (temptempo.length > 1) {
+            var sum = temptempo.reduce(function(a, b) { return a + b; });
+            tempo = sum / temptempo.length;
+            tempo = Math.floor((60 * 1000) / tempo);
+            console.log('tempo:', tempo, 'bpm');
+
+            $('body').css('animation-duration', (60/tempo*40) + 's');
+          }
+        }
 
         if(keyCode == 78){ // N
           next(player);
