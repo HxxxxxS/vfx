@@ -15,7 +15,7 @@
       <h4>Settings</h4>
       <button onclick="playPause()">Play/pause all video</button>
       <label for="tempo">Animation tempo (bpm):</label>
-      <input name="tempo" onkeyup="updateTempo(this.value, false)" style="width:35px; text-align: center;" ">
+      <input type="number" name="tempo" onkeyup="updateTempo(this.value, false)" style="width:35px; text-align: center;" >
       <hr>
       <section id="wc">
         <p>Webcam settings:</p>
@@ -31,11 +31,6 @@
         <input type="range" min="1" max="150" value="10" class="slider" name="brightness" data-type="filter" data-target="webcam" onchange="updateSettings();">
         <label for="opacity" data-target="webcam">Opacity:</label>
         <input type="range" min="0" max="1" value="0.5" step="0.05" class="slider" name="opacity" data-target="webcam" onchange="updateSettings();">
-      </section>
-      <hr>
-      <section id="body">
-        <label for="bgrotate">Enable background color rotation animation (slightly CPU exhaustive)</label>
-        <input type="checkbox" name="bgrotate" data-target="body" onchange="updateSettings()" checked>
       </section>
       <hr>
       <section id="text">
@@ -59,6 +54,7 @@
     <div id="settings-info">
       <p>Press <b>S</b> to toggle settings</p>
     </div>
+    <img id="preloadbg" src="assets/img/1.gif" style="display: none" />
     <script src="assets/js/jquery.js"></script>
     <script>
       var background;
@@ -67,6 +63,8 @@
       var players = [];
       var times = [];
       var taps = [];
+      var tempo = 100;
+      var gifrotation;
 
       $.getJSON('data/times.json', function(data){
         times = data;
@@ -78,8 +76,8 @@
         var player = (e.shiftKey ? background : videos);
 
         if(keyCode == 32){ // Space
-          var tempo = 100;
           if((Date.now() / 1000) - (taps[0] / 1000) > 3){ // Reset after 3 seconds
+            tempo = 100;
             taps.splice(0);
           }
 
@@ -101,6 +99,8 @@
             tempo = Math.floor((60 * 1000) / tempo);
             console.log('tempo:', tempo, 'bpm');
             updateTempo(tempo, true);
+          }else{
+            tempo = 100;
           }
         }
 
@@ -122,7 +122,7 @@
         if(keyCode == 83){ // S
           $('html').toggleClass('nocursor');
           $('#settings').toggle();
-          $('settings-info').remove();
+          $('#settings-info').remove();
         }
       });
 
@@ -144,6 +144,14 @@
         clearTimeout(resizeTimer);
         resizeTimer = setTimeout(resize, 50);
       });
+
+      function gifrotate(){
+        clearTimeout(gifrotation);
+        $('body').css('backgroundImage', 'url("' + $('#preloadbg').attr('src') + '")');
+        $('#preloadbg').attr('src', 'assets/img/' + Math.floor((Math.random() * 35) + 1) + '.gif');
+        gifrotation = setTimeout(gifrotate, tempo * 20);
+      }
+      gifrotate();
     </script>
     <script src="assets/js/webcam.js"></script>
     <script src="assets/js/youtube.js"></script>

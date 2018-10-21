@@ -1,21 +1,6 @@
 body {
-  background: black;
+  background-size: cover;
   overflow: hidden;
-  -webkit-animation-iteration-count: infinite;
-  -moz-animation-iteration-count: infinite;
-  animation-iteration-count: infinite;
-  -webkit-animation-timing-function: ease;
-  -moz-animation-timing-function: ease;
-  animation-timing-function: ease;
-  -webkit-animation-duration: 51s;
-  -moz-animation-duration: 51s;
-  animation-duration: 51s;
-}
-
-body.rotate {
-  -webkit-animation-name: backgroundrotate;
-  -moz-animation-name: backgroundrotate;
-  animation-name: backgroundrotate;
 }
 
 html.nocursor,
@@ -54,9 +39,8 @@ html.nocursor * {
   filter: brightness(100) contrast(25) opacity(0.25);
 }
 
-body.rotate #background {
+#background {
   mix-blend-mode: difference;
-  opacity: 0.66;
 }
 
 #videos {

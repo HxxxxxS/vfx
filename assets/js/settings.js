@@ -19,9 +19,6 @@ function updateSettings() {
         }
     }
     $('#webcam').css('filter', filterstring);
-
-    ($('#settings #body input[name="bgrotate"]')[0].checked ? $('body').addClass('rotate') : $('body').removeClass('rotate'));
-    localStorage['bginputbgrotate'] = $('#settings #body input[name="bgrotate"]')[0].checked;
 }
 
 var playing = true;
@@ -37,11 +34,14 @@ function playPause() {
     playing = !playing;
 }
 
-function updateTempo(tempo, updateBox) {
+function updateTempo(value, updateBox) {
+    tempo = value;
     if(updateBox) $('#settings input[name=tempo]').val(tempo);
     $('body').css('animation-duration', (tempo/2) + 's');
     $('#webcam').css('animation-duration', (60/tempo*4*(10*3)) + 's');
     $('#videos').css('animation-duration', (60/tempo*4*(10*2)) + 's');
+    clearTimeout(gifrotation);
+    gifrotation = setTimeout(gifrotate, tempo * 20);
 }
 
 for (var i = $('#settings input').length - 1; i >= 0; i--) {
