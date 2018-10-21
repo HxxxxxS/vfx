@@ -33,8 +33,7 @@ function setupPlayer(name, playlist) {
 function onYouTubeIframeAPIReady() {
     background = setupPlayer('background', 'PLTZu_i5Q06qBtm3XlJZm_WuViWJDF1l9h');
     videos = setupPlayer('videos', 'PLTZu_i5Q06qCtR4GwHMZIMQq-F1E4YBT9');
-    vhs_static = setupPlayer('vhs_static', 'PLTZu_i5Q06qCbogWL2EzhXO7gKi2NFNfB');
-    players = [background,videos,vhs_static];
+    players = [background,videos];
     $('#settings-info').css('opacity',0)
 }
 
@@ -86,15 +85,4 @@ function onPlayerError(event) {
     console.log(id, 'error:', event.data, target.getVideoUrl(), 'did not load');
     $('#settings #errors').append('<li><b>Error:</b> <a href="'+target.getVideoUrl()+'">'+target.getVideoUrl()+'</a> threw error '+event.data+'</li>');
     target.nextVideo();
-}
-
-function stop() {
-    background.stopVideo();
-    videos.stopVideo();
-    vhs_static.stopVideo();
-}
-
-function next(player)
-{
-    player.nextVideo();
 }

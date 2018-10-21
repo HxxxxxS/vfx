@@ -22,20 +22,16 @@ function updateSettings() {
 
     ($('#settings #body input[name="bgrotate"]')[0].checked ? $('body').addClass('rotate') : $('body').removeClass('rotate'));
     localStorage['bginputbgrotate'] = $('#settings #body input[name="bgrotate"]')[0].checked;
-
-    ($('#settings #static input[name="static_layer"]')[0].checked ? vhs_static.playVideo() : vhs_static.stopVideo());
-    localStorage['staticinputstatic_layer'] = $('#settings #static input[name="static_layer"]')[0].checked;
 }
 
 var playing = true;
 
 function playPause() {
-    var vids = [background, videos, vhs_static];
-    for (var i = vids.length - 1; i >= 0; i--) {
+    for (var i = players.length - 1; i >= 0; i--) {
         if(playing) {
-            vids[i].pauseVideo();
+            players[i].pauseVideo();
         }else{
-            vids[i].playVideo();
+            players[i].playVideo();
         }
     }
     playing = !playing;

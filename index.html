@@ -11,7 +11,6 @@
     <div id="background" class="hidden"></div>
     <video id="webcam" autoplay="true"></video>
     <div id="videos" class="hidden"></div>
-    <div id="vhs_static" class="hidden"></div>
     <div id="settings">
       <h4>Settings</h4>
       <button onclick="playPause()">Play/pause all video</button>
@@ -35,11 +34,6 @@
       <section id="body">
         <label for="bgrotate">Enable background color rotation animation (slightly CPU exhaustive)</label>
         <input type="checkbox" name="bgrotate" data-target="body" onchange="updateSettings()" checked>
-      </section>
-      <hr>
-      <section id="static">
-        <label for="static_layer">Enable vhs static noise (adds a third youtube video layer, slightly CPU exhaustive)</label>
-        <input type="checkbox" name="static_layer" data-target="vhs_static" onchange="updateSettings()" checked>
       </section>
       <hr>
       <section id="text">
@@ -68,8 +62,9 @@
       var background;
       var videos;
       var vhs_static;
-      var players;
-      var times;
+      var players = [];
+      var times = [];
+      var taps = [];
 
       $.getJSON('data/times.json', function(data){
         times = data;
@@ -109,7 +104,7 @@
         }
 
         if(keyCode == 78){ // N
-          next(player);
+          player.nextVideo();
         }
 
         if(keyCode == 75){ // K
@@ -129,7 +124,9 @@
           $('settings-info').remove();
         }
       });
-      setTimeout(function(){$('#settings-info').css('opacity',0)},2500);
+
+      setTimeout(function(){ $('#settings-info').css('opacity',0) }, 2500);
+
       function resize(){
         document.querySelector('body').style.height = window.innerHeight + 'px';
         document.querySelector('body').style.width = window.innerWidth + 'px';
@@ -140,9 +137,10 @@
         webcam.style.height = window.innerHeight + 'px';
         webcam.style.width = window.innerWidth + 'px';
       }
+
       var resizeTimer;
       $(window).on('load resize', function(e) {
-        clearTimeout(resize);
+        clearTimeout(resizeTimer);
         resizeTimer = setTimeout(resize, 50);
       });
     </script>
