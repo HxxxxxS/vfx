@@ -35,7 +35,11 @@ body{
     overflow:hidden;
 }
 body.rotate{
-    animation: backgroundrotate 51s ease infinite;
+    //animation: backgroundrotate 51s ease infinite;
+    animation-name: backgroundrotate;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease;
+    animation-duration: 51s;
 }
 html.nocursor,
 html.nocursor *{
