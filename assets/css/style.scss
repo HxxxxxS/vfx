@@ -1,0 +1,81 @@
+@import 'bourbon/bourbon';
+
+body{
+    background:black;
+    overflow:hidden;
+}
+body.rotate{
+    //animation: backgroundrotate 51s ease infinite;
+    @include animation-name(backgroundrotate);
+    @include animation-iteration-count(infinite);
+    @include animation-timing-function(ease);
+    @include animation-duration(51s);
+}
+html.nocursor,
+html.nocursor *{
+    cursor: url(assets/blank.png), none !important;
+}
+#webcam,
+#background,
+#videos,
+#vhs_static{
+    @include transition(width 0.1s, height 0.1s);
+    position: absolute;
+    left: 0;
+    top: 0;
+    pointer-events: none;
+}
+#webcam{
+    display: none;
+    object-fit: fill;
+    mix-blend-mode: darken;
+    @include animation(blendmode 19s ease infinite);
+    @include filter(brightness(100) contrast(25) opacity(0.25));
+}
+body.rotate #background{
+    @include animation(blendmode 47s linear infinite);
+}
+#videos{
+    @include animation(blendmode 21s ease infinite, fade 37s ease infinite);
+}
+#vhs_static{
+    mix-blend-mode: overlay;
+    @include animation(fade 13s ease infinite, bounce 25s ease infinite);
+}
+.hidden{
+    position: absolute !important;
+    top: -99999px !important;
+    left: -999999px !important;
+    opacity: 0 !important;
+}
+#settings{
+    background:white;
+    padding:10px 5px;
+    z-index: 999;
+    width: 50%;
+    position: absolute;
+    top: 5%;
+    left: 25%;
+    cursor: initial !important;
+    min-height: 100px;
+    display: none;
+}
+#settings *{
+    cursor: initial !important;
+}
+#settings [data-target="webcam"]{
+    display:none;
+}
+#settings-info{
+    @include transition(opacity 2s);
+    background:#fff;
+    border-radius: 5px;
+    opacity: 1;
+    position: relative;
+    margin: 100px auto;
+    width: 222px;
+    padding: 5px 10px;
+    text-align: center;
+}
+
+@import 'keyframes';
