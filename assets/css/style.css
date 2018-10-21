@@ -1,12 +1,6 @@
 body {
   background: black;
   overflow: hidden;
-}
-
-body.rotate {
-  -webkit-animation-name: backgroundrotate;
-  -moz-animation-name: backgroundrotate;
-  animation-name: backgroundrotate;
   -webkit-animation-iteration-count: infinite;
   -moz-animation-iteration-count: infinite;
   animation-iteration-count: infinite;
@@ -18,6 +12,12 @@ body.rotate {
   animation-duration: 51s;
 }
 
+body.rotate {
+  -webkit-animation-name: backgroundrotate;
+  -moz-animation-name: backgroundrotate;
+  animation-name: backgroundrotate;
+}
+
 html.nocursor,
 html.nocursor * {
   cursor: url(assets/blank.png), none !important;
@@ -25,8 +25,7 @@ html.nocursor * {
 
 #webcam,
 #background,
-#videos,
-#vhs_static {
+#videos {
   -webkit-transition: width 0.1s, height 0.1s;
   -moz-transition: width 0.1s, height 0.1s;
   transition: width 0.1s, height 0.1s;
@@ -39,31 +38,46 @@ html.nocursor * {
 #webcam {
   display: none;
   object-fit: fill;
-  mix-blend-mode: darken;
-  -webkit-animation: blendmode 19s ease infinite;
-  -moz-animation: blendmode 19s ease infinite;
-  animation: blendmode 19s ease infinite;
+  -webkit-animation-name: blendmode;
+  -moz-animation-name: blendmode;
+  animation-name: blendmode;
+  -webkit-animation-iteration-count: infinite;
+  -moz-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+  -webkit-animation-timing-function: ease;
+  -moz-animation-timing-function: ease;
+  animation-timing-function: ease;
+  -webkit-animation-duration: 19s;
+  -moz-animation-duration: 19s;
+  animation-duration: 19s;
   -webkit-filter: brightness(100) contrast(25) opacity(0.25);
   filter: brightness(100) contrast(25) opacity(0.25);
 }
 
 body.rotate #background {
-  -webkit-animation: blendmode 47s linear infinite;
-  -moz-animation: blendmode 47s linear infinite;
-  animation: blendmode 47s linear infinite;
+  mix-blend-mode: difference;
+  opacity: 0.66;
 }
 
 #videos {
-  -webkit-animation: blendmode 21s ease infinite, fade 37s ease infinite;
-  -moz-animation: blendmode 21s ease infinite, fade 37s ease infinite;
-  animation: blendmode 21s ease infinite, fade 37s ease infinite;
-}
-
-#vhs_static {
-  mix-blend-mode: overlay;
-  -webkit-animation: fade 13s ease infinite, bounce 25s ease infinite;
-  -moz-animation: fade 13s ease infinite, bounce 25s ease infinite;
-  animation: fade 13s ease infinite, bounce 25s ease infinite;
+  -webkit-animation-name: blendmode;
+  -moz-animation-name: blendmode;
+  animation-name: blendmode;
+  -webkit-animation-iteration-count: infinite;
+  -moz-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+  -webkit-animation-timing-function: ease;
+  -moz-animation-timing-function: ease;
+  animation-timing-function: ease;
+  -webkit-animation-duration: 21s;
+  -moz-animation-duration: 21s;
+  animation-duration: 21s;
+  -webkit-animation-direction: reverse;
+  -moz-animation-direction: reverse;
+  animation-direction: reverse;
+  -webkit-animation-delay: 3s;
+  -moz-animation-delay: 3s;
+  animation-delay: 3s;
 }
 
 .hidden {
@@ -200,7 +214,7 @@ body.rotate #background {
     mix-blend-mode: overlay;
   }
   25% {
-    mix-blend-mode: darken;
+    mix-blend-mode: color;
   }
   60% {
     mix-blend-mode: difference;
@@ -217,7 +231,7 @@ body.rotate #background {
     mix-blend-mode: overlay;
   }
   25% {
-    mix-blend-mode: darken;
+    mix-blend-mode: color;
   }
   60% {
     mix-blend-mode: difference;
@@ -234,7 +248,7 @@ body.rotate #background {
     mix-blend-mode: overlay;
   }
   25% {
-    mix-blend-mode: darken;
+    mix-blend-mode: color;
   }
   60% {
     mix-blend-mode: difference;

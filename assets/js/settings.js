@@ -37,6 +37,13 @@ function playPause() {
     playing = !playing;
 }
 
+function updateTempo(tempo, updateBox) {
+    if(updateBox) $('#settings input[name=tempo]').val(tempo);
+    $('body').css('animation-duration', (tempo/2) + 's');
+    $('#webcam').css('animation-duration', (60/tempo*4*(10*3)) + 's');
+    $('#videos').css('animation-duration', (60/tempo*4*(10*2)) + 's');
+}
+
 for (var i = $('#settings input').length - 1; i >= 0; i--) {
     var t = $('#settings input')[i];
     if(localStorage[t.parentElement.id + t.dataset.type + t.name]) {

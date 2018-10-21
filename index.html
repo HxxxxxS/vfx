@@ -14,6 +14,8 @@
     <div id="settings">
       <h4>Settings</h4>
       <button onclick="playPause()">Play/pause all video</button>
+      <label for="tempo">Animation tempo (bpm):</label>
+      <input name="tempo" onkeyup="updateTempo(this.value, false)" style="width:35px; text-align: center;" ">
       <hr>
       <section id="wc">
         <p>Webcam settings:</p>
@@ -76,9 +78,9 @@
         var player = (e.shiftKey ? background : videos);
 
         if(keyCode == 32){ // Space
+          var tempo = 100;
           if((Date.now() / 1000) - (taps[0] / 1000) > 3){ // Reset after 3 seconds
             taps.splice(0);
-            tempo = 100;
           }
 
           taps.unshift(Date.now());
@@ -98,8 +100,7 @@
             tempo = sum / temptempo.length;
             tempo = Math.floor((60 * 1000) / tempo);
             console.log('tempo:', tempo, 'bpm');
-
-            $('body').css('animation-duration', (60/tempo*40) + 's');
+            updateTempo(tempo, true);
           }
         }
 
