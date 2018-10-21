@@ -88,10 +88,6 @@ function onPlayerError(event) {
     target.nextVideo();
 }
 
-function stopVideo(player) {
-    player.stopVideo();
-}
-
 function stop() {
     background.stopVideo();
     videos.stopVideo();
