@@ -1,8 +1,10 @@
 @import 'bourbon/bourbon';
 
 body{
-    background: url(assets/img/1.gif) 100% 100%;
+    background-image: url(assets/img/1.gif);
+    background-size: 100% 100%;
     overflow:hidden;
+    float: left;
 }
 html.nocursor,
 html.nocursor *{
@@ -15,6 +17,8 @@ html.nocursor *{
     position: absolute;
     left: 0;
     top: 0;
+    height: 100%;
+    width: 100%;
     pointer-events: none;
 }
 #webcam{

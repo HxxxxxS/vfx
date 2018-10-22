@@ -147,12 +147,6 @@
       function resize(){
         document.querySelector('body').style.height = window.innerHeight + 'px';
         document.querySelector('body').style.width = window.innerWidth + 'px';
-        for (var i = players.length - 1; i >= 0; i--) {
-            $('#'+players[i].h.id).css('height',window.innerHeight + 'px');
-            $('#'+players[i].h.id).css('width',window.innerWidth + 'px');
-        }
-        webcam.style.height = window.innerHeight + 'px';
-        webcam.style.width = window.innerWidth + 'px';
       }
       resize();
 
