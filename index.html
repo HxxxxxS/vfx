@@ -17,6 +17,7 @@
       <input type="number" name="tempo" onkeyup="updateTempo(this.value, false)" onchange="updateTempo(this.value, false)" style="width:45px; text-align: center;" >
       <br>
       You can also tap <b>space</b> to set the tempo. Mousepress anywhere on screen to mark the start of a bar.
+      <button onclick="$('#bw').toggle()" style="float: right">Toggle Black/White mode</button>
       <hr>
       <section id="wc">
         <p>Webcam settings:</p>
@@ -56,6 +57,7 @@
       <p>Press <b>S</b> to toggle settings</p>
       <p>Fullscreen recommended</p>
     </div>
+    <div id="bw"></div>
     <img id="preloadbg" src="assets/img/1.gif" style="display: none" />
     <script src="assets/js/jquery.js"></script>
     <script src="assets/js/Alea.js"></script>
