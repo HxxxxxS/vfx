@@ -70,7 +70,7 @@ function onPlayerStateChange(event) {
                 var timer = times[videoId]['end'] - target.getCurrentTime();
                 clearTimeout(window[id].out);
                 window[id].out = setTimeout(function(){
-                    target.playVideoAt(Math.floor(random() * target.getPlaylist().length));
+                    target.nextVideo();
                 }, timer * 1000);
                 console.log(id, 'will be skipped in', timer);
             }
