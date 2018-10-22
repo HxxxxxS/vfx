@@ -76,64 +76,68 @@
       });
 
       $(document).on('keydown', function(e){
+
         var keyCode = e.keyCode || e.which;
         // console.log(e);
         var player = (e.shiftKey ? background : videos);
 
-        if(keyCode == 32){ // Space
-          if((Date.now() / 1000) - (taps[0] / 1000) > 3){ // Reset after 3 seconds
-            tempo = 100;
-            taps.splice(0);
-          }
+        if(!e.ctrlKey){
+          if(keyCode == 32){ // Space
+            if((Date.now() / 1000) - (taps[0] / 1000) > 3){ // Reset after 3 seconds
+              tempo = 100;
+              taps.splice(0);
+            }
 
-          taps.unshift(Date.now());
-          taps.length = 16;
-          var temptempo = [];
+            taps.unshift(Date.now());
+            taps.length = 16;
+            var temptempo = [];
 
-          for (var i = taps.length - 1; i >= 0; i--) {
-            if(taps[i]){
-              if(taps[i-1]){
-                temptempo.push(taps[i-1] - taps[i]);
+            for (var i = taps.length - 1; i >= 0; i--) {
+              if(taps[i]){
+                if(taps[i-1]){
+                  temptempo.push(taps[i-1] - taps[i]);
+                }
               }
+            }
+
+            if (temptempo.length > 1) {
+              temptempo.sort( function(a,b) {return a - b;} );
+              var half = Math.floor(temptempo.length/2);
+              if(temptempo.length % 2)
+                  tempo = temptempo[half];
+              else
+                  tempo = (temptempo[half-1] + temptempo[half]) / 2.0;
+
+              tempo = Math.floor((60 * 1000) / tempo);
+              console.log('tempo:', tempo, 'bpm');
+              updateTempo(tempo, true);
+            }else{
+              tempo = 100;
             }
           }
 
-          if (temptempo.length > 1) {
-            temptempo.sort( function(a,b) {return a - b;} );
-            var half = Math.floor(temptempo.length/2);
-            if(temptempo.length % 2)
-                tempo = temptempo[half];
-            else
-                tempo = (temptempo[half-1] + temptempo[half]) / 2.0;
+          if(keyCode == 78){ // N
+            player.playVideoAt(Math.floor(random() * player.getPlaylist().length));
+          }
 
-            tempo = Math.floor((60 * 1000) / tempo);
-            console.log('tempo:', tempo, 'bpm');
-            updateTempo(tempo, true);
-          }else{
-            tempo = 100;
+          if(keyCode == 75){ // K
+            if(player.getPlayerState() == 1)
+              player.pauseVideo();
+            else
+              player.playVideo()
+          }
+
+          if(keyCode == 82){ // R
+            var skipTo = Math.floor(random() * player.getDuration());
+            player.seekTo(skipTo);
+          }
+          if(keyCode == 83){ // S
+            $('html').toggleClass('nocursor');
+            $('#settings').toggle();
+            $('#settings-info').remove();
           }
         }
 
-        if(keyCode == 78){ // N
-          player.playVideoAt(Math.floor(random() * player.getPlaylist().length));
-        }
-
-        if(keyCode == 75){ // K
-          if(player.getPlayerState() == 1)
-            player.pauseVideo();
-          else
-            player.playVideo()
-        }
-
-        if(keyCode == 32){ // Space
-          var skipTo = Math.floor(random() * player.getDuration());
-          player.seekTo(skipTo);
-        }
-        if(keyCode == 83){ // S
-          $('html').toggleClass('nocursor');
-          $('#settings').toggle();
-          $('#settings-info').remove();
-        }
       });
 
       $(document).on('mousepressed', gifrotate);
