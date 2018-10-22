@@ -58,6 +58,7 @@
     </div>
     <img id="preloadbg" src="assets/img/1.gif" style="display: none" />
     <script src="assets/js/jquery.js"></script>
+    <script src="assets/js/Alea.js"></script>
     <script>
       var background;
       var videos;
@@ -67,6 +68,8 @@
       var taps = [];
       var tempo = 100;
       var gifrotation;
+
+      var random = new Alea();
 
       $.getJSON('data/times.json', function(data){
         times = data;
@@ -112,7 +115,7 @@
         }
 
         if(keyCode == 78){ // N
-          player.nextVideo();
+          player.playVideoAt(Math.floor(random() * player.getPlaylist().length));
         }
 
         if(keyCode == 75){ // K
@@ -123,7 +126,7 @@
         }
 
         if(keyCode == 32){ // Space
-          var skipTo = Math.floor(Math.random() * player.getDuration());
+          var skipTo = Math.floor(random() * player.getDuration());
           player.seekTo(skipTo);
         }
         if(keyCode == 83){ // S
@@ -157,7 +160,7 @@
       function gifrotate(){
         clearTimeout(gifrotation);
         $('body').css('backgroundImage', 'url("' + $('#preloadbg').attr('src') + '")');
-        $('#preloadbg').attr('src', 'assets/img/' + Math.floor((Math.random() * 100) + 1) + '.gif');
+        $('#preloadbg').attr('src', 'assets/img/' + Math.floor(random() * 100) + '.gif');
         gifrotation = setTimeout(gifrotate, 60 * 1000 / tempo * 8);
       }
       gifrotate();
