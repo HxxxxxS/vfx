@@ -93,9 +93,9 @@ html.nocursor * {
 }
 
 #settings-info {
-  -webkit-transition: opacity 2s;
-  -moz-transition: opacity 2s;
-  transition: opacity 2s;
+  -webkit-transition: opacity 4s;
+  -moz-transition: opacity 4s;
+  transition: opacity 4s;
   background: #fff;
   border-radius: 5px;
   opacity: 1;

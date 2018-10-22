@@ -41,16 +41,19 @@ function updateTempo(value, updateBox) {
     $('#webcam').css('animation-duration', (60/tempo*4*(10*3)) + 's');
     $('#videos').css('animation-duration', (60/tempo*4*(10*2)) + 's');
     clearTimeout(gifrotation);
-    gifrotation = setTimeout(gifrotate, tempo * 20);
+    gifrotation = setTimeout(gifrotate, 60 * 1000 / tempo * 8);
 }
 
 for (var i = $('#settings input').length - 1; i >= 0; i--) {
     var t = $('#settings input')[i];
     if(localStorage[t.parentElement.id + t.dataset.type + t.name]) {
-        if(t.dataset.type = 'checkbox'){
+        if(t.dataset.type == 'checkbox'){
             t.checked = localStorage[t.parentElement.id + t.dataset.type + t.name];
         }else{
             t.value = localStorage[t.parentElement.id + t.dataset.type + t.name];
+        }
+        if(t.name == 'tempo'){
+            tempo = t.value;
         }
     }
 }

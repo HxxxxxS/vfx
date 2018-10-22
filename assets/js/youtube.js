@@ -49,6 +49,7 @@ function moreParameters(){
         players[i].setShuffle(true);
         players[i].setPlaybackQuality('small');
     }
+    videos.nextVideo();
     updateSettings();
 }
 

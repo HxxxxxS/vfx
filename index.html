@@ -12,10 +12,11 @@
     <video id="webcam" autoplay="true"></video>
     <div id="videos" class="hidden"></div>
     <div id="settings">
-      <h4>Settings</h4>
-      <button onclick="playPause()">Play/pause all video</button>
+      <h4>Settings <button onclick="playPause()" style="float: right;">Play/pause all video</button></h4>
       <label for="tempo">Animation tempo (bpm):</label>
-      <input type="number" name="tempo" onkeyup="updateTempo(this.value, false)" style="width:35px; text-align: center;" >
+      <input type="number" name="tempo" onkeyup="updateTempo(this.value, false)" onchange="updateTempo(this.value, false)" style="width:45px; text-align: center;" >
+      <br>
+      You can also tap <b>space</b> to set the tempo. Mousepress anywhere on screen to mark the start of a bar.
       <hr>
       <section id="wc">
         <p>Webcam settings:</p>
@@ -53,6 +54,7 @@
     </div>
     <div id="settings-info">
       <p>Press <b>S</b> to toggle settings</p>
+      <p>Fullscreen recommended</p>
     </div>
     <img id="preloadbg" src="assets/img/1.gif" style="display: none" />
     <script src="assets/js/jquery.js"></script>
@@ -94,8 +96,13 @@
           }
 
           if (temptempo.length > 1) {
-            var sum = temptempo.reduce(function(a, b) { return a + b; });
-            tempo = sum / temptempo.length;
+            temptempo.sort( function(a,b) {return a - b;} );
+            var half = Math.floor(temptempo.length/2);
+            if(temptempo.length % 2)
+                tempo = temptempo[half];
+            else
+                tempo = (temptempo[half-1] + temptempo[half]) / 2.0;
+
             tempo = Math.floor((60 * 1000) / tempo);
             console.log('tempo:', tempo, 'bpm');
             updateTempo(tempo, true);
@@ -125,6 +132,8 @@
           $('#settings-info').remove();
         }
       });
+
+      $(document).on('mousepressed', gifrotate);
 
       setTimeout(function(){ $('#settings-info').css('opacity',0) }, 2500);
 
