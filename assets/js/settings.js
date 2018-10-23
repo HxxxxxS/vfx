@@ -40,6 +40,7 @@ function updateTempo(value, updateBox) {
     $('body').css('animation-duration', (tempo/2) + 's');
     $('#webcam').css('animation-duration', (60/tempo*4*(10*3)) + 's');
     $('#videos').css('animation-duration', (60/tempo*4*(10*2)) + 's');
+    console.log('tempo:', tempo, 'bpm');
     clearTimeout(gifrotation);
     gifrotation = setTimeout(gifrotate, 60 * 1000 / tempo * 8);
 }

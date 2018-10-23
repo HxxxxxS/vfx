@@ -100,7 +100,6 @@
             if(!e.ctrlKey){
                 if(keyCode == 32){ // Space
                     if((Date.now() / 1000) - (taps[0] / 1000) > 3){ // Reset after 3 seconds
-                        tempo = 100;
                         taps.splice(0);
                     }
 
@@ -120,39 +119,38 @@
                         temptempo.sort( function(a,b) {return a - b;} );
                         var half = Math.floor(temptempo.length/2);
                         if(temptempo.length % 2)
-                            tempo = temptempo[half];
+                            temptempo = temptempo[half];
                         else
-                            tempo = (temptempo[half-1] + temptempo[half]) / 2.0;
+                            temptempo = (temptempo[half-1] + temptempo[half]) / 2.0;
 
-                        tempo = 60 * 1000 / tempo;
-                        console.log('tempo:', tempo, 'bpm');
-                        updateTempo(tempo, true);
-                    }else{
-                        tempo = 100;
+                        temptempo = 60 * 1000 / temptempo;
+                        updateTempo(temptempo, true);
                     }
                 }
-
-                if(keyCode == 78){ // N
+                else if(keyCode == 78) // N
+                {
                     player.nextVideo();
                 }
-
-                if(keyCode == 75){ // K
+                else if(keyCode == 75) // K
+                {
                     if(player.getPlayerState() == 1)
                         player.pauseVideo();
                     else
                         player.playVideo()
                 }
-
-                if(keyCode == 82){ // R
+                else if(keyCode == 82) // R
+                {
                     var skipTo = Math.floor(random() * player.getDuration());
                     player.seekTo(skipTo);
                 }
-                if(keyCode == 83){ // S
+                else if(keyCode == 83) // S
+                {
                     $('html').toggleClass('nocursor');
                     $('#settings').toggle();
                     $('#settings-info').remove();
                 }
-                if((e.key >= 0 && e.key <= 9) || e.key == '.') { // Digits 0-9
+                else if((e.key >= 0 && e.key <= 9) || e.key == '.') // Digits 0-9
+                {
                     if(!tempoinput){
                         tempoinput = e.key;
                     }else{
