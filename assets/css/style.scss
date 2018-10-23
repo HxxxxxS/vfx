@@ -86,4 +86,13 @@ html.nocursor *{
     top:0px;
     left:0px;
 }
+
+.clearfix:after { //Clearfix
+   content: " ";
+   visibility: hidden;
+   display: block;
+   height: 0;
+   clear: both;
+}
+
 @import 'keyframes';

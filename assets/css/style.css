@@ -121,6 +121,14 @@ html.nocursor * {
   left: 0px;
 }
 
+.clearfix:after {
+  content: " ";
+  visibility: hidden;
+  display: block;
+  height: 0;
+  clear: both;
+}
+
 @-webkit-keyframes backgroundrotate {
   10%,30%,50%,70%,90% {
     background-color: #000000;
