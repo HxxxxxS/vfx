@@ -166,7 +166,10 @@
 
       });
 
-      $(document).on('mousedown', gifrotate);
+      $(document).click(gifrotate);
+      $('#settings').click(function(e) {
+          e.stopPropagation();
+      });
 
       setTimeout(function(){ $('#settings-info').css('opacity',0) }, 2500);
 
