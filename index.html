@@ -1,200 +1,203 @@
-<!-- PoC thrown together before a party. Please don't judge the quality my code -->
 <!DOCTYPE html>
 <html class="nocursor">
-  <head>
+<head>
     <meta charset="utf-8" />
     <title>VFX Generator</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="assets/css/style.css">
-  </head>
-  <body class="rotate">
+</head>
+<body class="rotate">
     <div id="background" class="hidden"></div>
     <video id="webcam" autoplay="true"></video>
     <div id="videos" class="hidden"></div>
     <div id="settings">
-      <h4>Settings <button onclick="playPause()" style="float: right;">Play/pause all video</button></h4>
-      <section id="bpm" style="float: left">
-        <label for="tempo">Animation tempo (bpm):</label>
-        <input type="text" name="tempo" onkeyup="updateTempo(this.value, false)" onchange="updateTempo(this.value, false)" style="width:45px; text-align: center;" disabled>
-        <br>
-        <p>
-          You can also tap <b>space</b> or just type with <b>0-9</b> to set the tempo.
-          <br>
-          Mousepress anywhere on screen to mark the start of a bar.
-        </p>
-      </section>
-      <button onclick="$('#bw').toggle()" style="float: right">Toggle Black/White mode</button>
-      <div class="clearfix"></div>
-      <hr>
-      <section id="wc">
-        <p>Webcam settings:</p>
-        <button onclick="toggleWebcam()">Webcam on/off</button>
-        <input type="checkbox" name="invert" data-type="filter" value="0" data-target="webcam" onchange="updateSettings();">
-        <label for="invert" data-target="webcam">Invert webcam colors</label>
-        <input type="checkbox" name="rotate" value="0" data-target="webcam" onchange="updateSettings();">
-        <label for="rotate" data-target="webcam">Flip webcam</label>
-        <br>
-        <label for="contrast" data-target="webcam">Contrast:</label>
-        <input type="range" min="0" max="3" value="2" step="0.05" class="slider" name="contrast" data-type="filter" data-target="webcam" onchange="updateSettings();">
-        <label for="brightness" data-target="webcam">Brightness:</label>
-        <input type="range" min="1" max="150" value="10" class="slider" name="brightness" data-type="filter" data-target="webcam" onchange="updateSettings();">
-        <label for="opacity" data-target="webcam">Opacity:</label>
-        <input type="range" min="0" max="1" value="0.5" step="0.05" class="slider" name="opacity" data-target="webcam" onchange="updateSettings();">
-      </section>
-      <hr>
-      <section id="text">
-        <p>Press <b>S</b> to toggle settings</p>
-        <p>
-          <b>Video hotkeys:</b>
-          <p><b>Shift</b>-modifier selects background layer instead of top layer</p>
-          <ul>
-            <li><b>N</b>: Next video</li>
-            <li><b>K</b>: Play/pause</li>
-            <li><b>R</b>: Skip to random point in video.</li>
-          </ul>
-        </p>
-      </section>
-      <hr>
-      <section id="footer">
-        <p>Now playing:</p>
-        <p>Foreground: <a id="npvideos" src="#" target="_blank"></a>, Background: <a id="npbackground" href="#" target="_blank"></a></p>
+        <h4>Settings <button onclick="playPause()" style="float: right;">Play/pause all video</button></h4>
+        <section id="bpm" style="float: left">
+            <label for="tempo">Animation tempo (bpm):</label>
+            <input type="text" name="tempo" 
+            onkeyup="updateTempo(this.value, false)" onchange="updateTempo(this.value, false)" 
+            style="width:45px; text-align: center;" disabled>
+            <br>
+            <p>
+                You can also tap <b>space</b> or just type with <b>0-9</b> to set the tempo.
+                <br>
+                Mousepress anywhere on screen to mark the start of a bar.
+            </p>
+        </section>
+        <button onclick="$('#bw').toggle()" style="float: right">Toggle Black/White mode</button>
+        <div class="clearfix"></div>
         <hr>
-        <p>Source code available at <a href="https://github.com/HxxxxxS/vfx">https://github.com/HxxxxxS/vfx</a></p>
-        <ul id="errors"></ul>
-      </section>
+        <section id="wc">
+            <p>Webcam settings:</p>
+            <button onclick="toggleWebcam()">Webcam on/off</button>
+            <input type="checkbox" name="invert" data-type="filter" value="0" data-target="webcam" onchange="updateSettings();">
+            <label for="invert" data-target="webcam">Invert webcam colors</label>
+            <input type="checkbox" name="rotate" value="0" data-target="webcam" onchange="updateSettings();">
+            <label for="rotate" data-target="webcam">Flip webcam</label>
+            <br>
+            <label for="contrast" data-target="webcam">Contrast:</label>
+            <input type="range" min="0" max="3" value="2" step="0.05" class="slider" name="contrast" data-type="filter" data-target="webcam" onchange="updateSettings();">
+            <label for="brightness" data-target="webcam">Brightness:</label>
+            <input type="range" min="1" max="150" value="10" class="slider" name="brightness" data-type="filter" data-target="webcam" onchange="updateSettings();">
+            <label for="opacity" data-target="webcam">Opacity:</label>
+            <input type="range" min="0" max="1" value="0.5" step="0.05" class="slider" name="opacity" 
+            data-target="webcam" onchange="updateSettings();">
+        </section>
+        <hr>
+        <section id="text">
+            <p>Press <b>S</b> to toggle settings</p>
+            <p>
+                <b>Video hotkeys:</b>
+                <p><b>Shift</b>-modifier selects background layer instead of top layer</p>
+                <ul>
+                    <li><b>N</b>: Next video</li>
+                    <li><b>K</b>: Play/pause</li>
+                    <li><b>R</b>: Skip to random point in video.</li>
+                </ul>
+            </p>
+        </section>
+        <hr>
+        <section id="footer">
+            <p>Now playing:</p>
+            <p>
+                Foreground: <a id="npvideos" src="#" target="_blank"></a>, Background: <a id="npbackground" href="#" target="_blank"></a>
+            </p>
+            <hr>
+            <p>Source code available at <a href="https://github.com/HxxxxxS/vfx">https://github.com/HxxxxxS/vfx</a></p>
+            <ul id="errors"></ul>
+        </section>
     </div>
     <div id="settings-info">
-      <p>Press <b>S</b> to toggle settings</p>
-      <p>Fullscreen recommended</p>
+        <p>Press <b>S</b> to toggle settings</p>
+        <p>Fullscreen recommended</p>
     </div>
     <div id="bw"></div>
     <img id="preloadbg" src="assets/img/1.gif" style="display: none" />
     <script src="assets/js/jquery.js"></script>
     <script src="assets/js/Alea.js"></script>
     <script>
-      var background;
-      var videos;
-      var vhs_static;
-      var players = [];
-      var times = [];
-      var taps = [];
-      var tempo = 100;
-      var gifrotation;
-      var tempoinput;
-      var tempoto;
+        var players = [];
+        var background;
+        var videos;
+        var vhs_static;
+        var times = [];
+        var taps = [];
+        var tempo = 100;
+        var tempoinput;
+        var tempoto;
 
-      var random = new Alea();
+        var random = new Alea();
 
-      $.getJSON('data/times.json', function(data){
-        times = data;
-      });
+        $.getJSON('data/times.json', function(data){
+            times = data;
+        });
 
-      $(document).on('keydown', function(e){
+        $(document).on('keydown', function(e){
 
-        var keyCode = e.keyCode || e.which;
-        // console.log(e);
-        var player = (e.shiftKey ? background : videos);
+            var keyCode = e.keyCode || e.which;
+            var player = (e.shiftKey ? background : videos);
 
-        if(!e.ctrlKey){
-          if(keyCode == 32){ // Space
-            if((Date.now() / 1000) - (taps[0] / 1000) > 3){ // Reset after 3 seconds
-              tempo = 100;
-              taps.splice(0);
-            }
+            if(!e.ctrlKey){
+                if(keyCode == 32){ // Space
+                    if((Date.now() / 1000) - (taps[0] / 1000) > 3){ // Reset after 3 seconds
+                        tempo = 100;
+                        taps.splice(0);
+                    }
 
-            taps.unshift(Date.now());
-            taps.length = 16;
-            var temptempo = [];
+                    taps.unshift(Date.now());
+                    taps.length = 16;
+                    var temptempo = [];
 
-            for (var i = taps.length - 1; i >= 0; i--) {
-              if(taps[i]){
-                if(taps[i-1]){
-                  temptempo.push(taps[i-1] - taps[i]);
+                    for (var i = taps.length - 1; i >= 0; i--) {
+                        if(taps[i]){
+                            if(taps[i-1]){
+                                temptempo.push(taps[i-1] - taps[i]);
+                            }
+                        }
+                    }
+
+                    if (temptempo.length > 1) {
+                        temptempo.sort( function(a,b) {return a - b;} );
+                        var half = Math.floor(temptempo.length/2);
+                        if(temptempo.length % 2)
+                            tempo = temptempo[half];
+                        else
+                            tempo = (temptempo[half-1] + temptempo[half]) / 2.0;
+
+                        tempo = Math.floor((60 * 1000) / tempo);
+                        console.log('tempo:', tempo, 'bpm');
+                        updateTempo(tempo, true);
+                    }else{
+                        tempo = 100;
+                    }
                 }
-              }
+
+                if(keyCode == 78){ // N
+                    player.nextVideo();
+                }
+
+                if(keyCode == 75){ // K
+                    if(player.getPlayerState() == 1)
+                        player.pauseVideo();
+                    else
+                        player.playVideo()
+                }
+
+                if(keyCode == 82){ // R
+                    var skipTo = Math.floor(random() * player.getDuration());
+                    player.seekTo(skipTo);
+                }
+                if(keyCode == 83){ // S
+                    $('html').toggleClass('nocursor');
+                    $('#settings').toggle();
+                    $('#settings-info').remove();
+                }
+                if((e.key >= 0 && e.key <= 9) || e.key == '.') { // Digits 0-9
+                    if(!tempoinput){
+                        tempoinput = e.key;
+                    }else{
+                        tempoinput += ''+e.key;
+                    }
+                    updateTempo(tempoinput, true);
+                    clearTimeout(tempoto);
+                    tempoto = setTimeout(function(){
+                        tempoinput = false;
+                    }, 1000);
+                }
             }
 
-            if (temptempo.length > 1) {
-              temptempo.sort( function(a,b) {return a - b;} );
-              var half = Math.floor(temptempo.length/2);
-              if(temptempo.length % 2)
-                  tempo = temptempo[half];
-              else
-                  tempo = (temptempo[half-1] + temptempo[half]) / 2.0;
+        });
 
-              tempo = Math.floor((60 * 1000) / tempo);
-              console.log('tempo:', tempo, 'bpm');
-              updateTempo(tempo, true);
-            }else{
-              tempo = 100;
-            }
-          }
+        $(document).click(gifrotate);
+        $('#settings').click(function(e) {
+            e.stopPropagation();
+        });
 
-          if(keyCode == 78){ // N
-            player.nextVideo();
-          }
+        setTimeout(function(){ $('#settings-info').css('opacity',0) }, 2500);
 
-          if(keyCode == 75){ // K
-            if(player.getPlayerState() == 1)
-              player.pauseVideo();
-            else
-              player.playVideo()
-          }
-
-          if(keyCode == 82){ // R
-            var skipTo = Math.floor(random() * player.getDuration());
-            player.seekTo(skipTo);
-          }
-          if(keyCode == 83){ // S
-            $('html').toggleClass('nocursor');
-            $('#settings').toggle();
-            $('#settings-info').remove();
-          }
-          if((e.key >= 0 && e.key <= 9) || e.key == '.') { // Digits 0-9
-            if(!tempoinput){
-              tempoinput = e.key;
-            }else{
-              tempoinput += ''+e.key;
-            }
-            updateTempo(tempoinput, true);
-            clearTimeout(tempoto);
-            tempoto = setTimeout(function(){
-              tempoinput = false;
-            }, 1000);
-          }
+        function resize(){
+            document.querySelector('body').style.height = window.innerHeight + 'px';
+            document.querySelector('body').style.width = window.innerWidth + 'px';
         }
+        resize();
 
-      });
+        var resizeTimer;
+        $(window).on('load resize', function(e) {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(resize, 50);
+        });
 
-      $(document).click(gifrotate);
-      $('#settings').click(function(e) {
-          e.stopPropagation();
-      });
-
-      setTimeout(function(){ $('#settings-info').css('opacity',0) }, 2500);
-
-      function resize(){
-        document.querySelector('body').style.height = window.innerHeight + 'px';
-        document.querySelector('body').style.width = window.innerWidth + 'px';
-      }
-      resize();
-
-      var resizeTimer;
-      $(window).on('load resize', function(e) {
-        clearTimeout(resizeTimer);
-        resizeTimer = setTimeout(resize, 50);
-      });
-
-      function gifrotate(){
-        clearTimeout(gifrotation);
-        $('body').css('backgroundImage', 'url("' + $('#preloadbg').attr('src') + '")');
-        $('#preloadbg').attr('src', 'assets/img/' + Math.floor(random() * 100) + '.gif');
-        gifrotation = setTimeout(gifrotate, 60 * 1000 / tempo * 8);
-      }
-      gifrotate();
+        var gifrotation;
+        function gifrotate(){
+            clearTimeout(gifrotation);
+            $('body').css('backgroundImage', 'url("' + $('#preloadbg').attr('src') + '")');
+            $('#preloadbg').attr('src', 'assets/img/' + Math.floor(random() * 100) + '.gif');
+            gifrotation = setTimeout(gifrotate, 60 * 1000 / tempo * 8);
+        }
+        gifrotate();
     </script>
     <script src="assets/js/webcam.js"></script>
     <script src="assets/js/youtube.js"></script>
     <script src="assets/js/settings.js"></script>
-  </body>
+</body>
 </html>
