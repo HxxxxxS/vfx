@@ -124,7 +124,7 @@
                         else
                             tempo = (temptempo[half-1] + temptempo[half]) / 2.0;
 
-                        tempo = Math.floor((60 * 1000) / tempo);
+                        tempo = 60 * 1000 / tempo;
                         console.log('tempo:', tempo, 'bpm');
                         updateTempo(tempo, true);
                     }else{
