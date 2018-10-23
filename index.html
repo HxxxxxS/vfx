@@ -191,7 +191,7 @@
         function gifrotate(){
             clearTimeout(gifrotation);
             $('body').css('backgroundImage', 'url("' + $('#preloadbg').attr('src') + '")');
-            $('#preloadbg').attr('src', 'assets/img/' + Math.floor(random() * 100) + '.gif');
+            $('#preloadbg').attr('src', 'assets/img/' + Math.floor(random() * 185) + '.gif');
             gifrotation = setTimeout(gifrotate, 60 * 1000 / tempo * 8);
         }
         gifrotate();
