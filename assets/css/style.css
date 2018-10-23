@@ -110,15 +110,15 @@ html.nocursor * {
   text-align: center;
 }
 
-#bw{
-    display: none;
-    width:100%;
-    height:100%;
-    background:black;
-    mix-blend-mode: color;
-    position: absolute;
-    top:0px;
-    left:0px;
+#bw {
+  display: none;
+  width: 100%;
+  height: 100%;
+  background: black;
+  mix-blend-mode: color;
+  position: absolute;
+  top: 0px;
+  left: 0px;
 }
 
 @-webkit-keyframes backgroundrotate {
