@@ -13,10 +13,16 @@
     <div id="videos" class="hidden"></div>
     <div id="settings">
       <h4>Settings <button onclick="playPause()" style="float: right;">Play/pause all video</button></h4>
-      <label for="tempo">Animation tempo (bpm):</label>
-      <input type="number" name="tempo" onkeyup="updateTempo(this.value, false)" onchange="updateTempo(this.value, false)" style="width:45px; text-align: center;" >
-      <br>
-      You can also tap <b>space</b> to set the tempo. Mousepress anywhere on screen to mark the start of a bar.
+      <section id="bpm" style="float: left">
+        <label for="tempo">Animation tempo (bpm):</label>
+        <input type="text" name="tempo" onkeyup="updateTempo(this.value, false)" onchange="updateTempo(this.value, false)" style="width:45px; text-align: center;" disabled>
+        <br>
+        <p>
+          You can also tap <b>space</b> or just type with <b>0-9</b> to set the tempo.
+          <br>
+          Mousepress anywhere on screen to mark the start of a bar.
+        </p>
+      </section>
       <button onclick="$('#bw').toggle()" style="float: right">Toggle Black/White mode</button>
       <div class="clearfix"></div>
       <hr>
@@ -74,6 +80,8 @@
       var taps = [];
       var tempo = 100;
       var gifrotation;
+      var tempoinput;
+      var tempoto;
 
       var random = new Alea();
 
@@ -141,6 +149,18 @@
             $('html').toggleClass('nocursor');
             $('#settings').toggle();
             $('#settings-info').remove();
+          }
+          if((e.key >= 0 && e.key <= 9) || e.key == '.') { // Digits 0-9
+            if(!tempoinput){
+              tempoinput = e.key;
+            }else{
+              tempoinput += ''+e.key;
+            }
+            updateTempo(tempoinput, true);
+            clearTimeout(tempoto);
+            tempoto = setTimeout(function(){
+              tempoinput = false;
+            }, 1000);
           }
         }
 
