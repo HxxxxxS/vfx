@@ -221,7 +221,7 @@ html.nocursor * {
     mix-blend-mode: overlay;
   }
   25% {
-    mix-blend-mode: color;
+    mix-blend-mode: darken;
   }
   60% {
     mix-blend-mode: difference;
@@ -238,7 +238,7 @@ html.nocursor * {
     mix-blend-mode: overlay;
   }
   25% {
-    mix-blend-mode: color;
+    mix-blend-mode: darken;
   }
   60% {
     mix-blend-mode: difference;
@@ -255,7 +255,7 @@ html.nocursor * {
     mix-blend-mode: overlay;
   }
   25% {
-    mix-blend-mode: color;
+    mix-blend-mode: darken;
   }
   60% {
     mix-blend-mode: difference;
