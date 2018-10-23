@@ -76,6 +76,7 @@
     <script src="assets/js/jquery.js"></script>
     <script src="assets/js/Alea.js"></script>
     <script>
+        var gifcount = 187;
         var players = [];
         var background;
         var videos;
@@ -189,7 +190,7 @@
         function gifrotate(){
             clearTimeout(gifrotation);
             $('body').css('backgroundImage', 'url("' + $('#preloadbg').attr('src') + '")');
-            $('#preloadbg').attr('src', 'assets/img/' + Math.floor(random() * 185) + '.gif');
+            $('#preloadbg').attr('src', 'assets/img/' + Math.floor(random() * gifcount) + '.gif');
             gifrotation = setTimeout(gifrotate, 60 * 1000 / tempo * 8);
         }
         gifrotate();
