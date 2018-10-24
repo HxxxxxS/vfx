@@ -101,7 +101,7 @@
 
             if(!e.ctrlKey){
                 if(keyCode == 32){ // Space
-                    if((Date.now() / 1000) - (taps[0] / 1000) > 3){ // Reset after 3 seconds
+                    if((Date.now() / 1000) - (taps[0] / 1000) > 2){ // Reset after 2 seconds
                         taps.splice(0);
                     }
 
