@@ -175,8 +175,8 @@
         setTimeout(function(){ $('#settings-info').css('opacity',0) }, 2500);
 
         function resize(){
-            document.querySelector('body').style.height = window.innerHeight + 'px';
-            document.querySelector('body').style.width = window.innerWidth + 'px';
+            $('body').css('height', window.innerHeight + 'px');
+            $('body').css('width', window.innerWidth + 'px');
         }
         resize();
 

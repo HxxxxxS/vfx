@@ -2,7 +2,7 @@ var times = [];
 var players = [];
 
 var tag = document.createElement('script');
-tag.src = "https://www.youtube.com/iframe_api";
+tag.src = 'https://www.youtube.com/iframe_api';
 var firstScriptTag = document.getElementsByTagName('script')[0];
 firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
@@ -75,7 +75,7 @@ function onPlayerStateChange(event) {
                 console.log(id, 'will be skipped in', timer);
             }
         }
-        $('#np'+id).attr('href', 'https://youtube.com/watch?v=' + videoId).text( target.getVideoData().title);
+        $('#np'+id).attr('href', 'https://youtube.com/watch?v=' + videoId).text(target.getVideoData().title);
     }else if(target.getPlayerState() != 2){
         $('#' + id).addClass('hidden');
     }

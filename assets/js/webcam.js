@@ -2,8 +2,8 @@ var webcam = document.querySelector("#webcam");
 var wc_status = false;
 
 function setupWebcam(name) {
-    name.style.height = window.innerHeight + 'px';
-    name.style.width = window.innerWidth + 'px';
+    $(name).css('height', window.innerHeight + 'px');
+    $(name).css('width', window.innerWidth + 'px');
 
     if (navigator.mediaDevices.getUserMedia) {
         navigator.mediaDevices.getUserMedia({video: true})
