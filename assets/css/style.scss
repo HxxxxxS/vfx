@@ -76,6 +76,17 @@ html.nocursor *{
     padding: 5px 10px;
     text-align: center;
 }
+#bpm-preview{
+    position: absolute;
+    bottom:0px;
+    right:0px;
+    color: white;
+    background:black;
+    font-size:18px;
+    padding:5px 10px;
+    border-radius: 5px 0px 0px 0px;
+    @include transition(opacity .5s);
+}
 #bw{
     display: none;
     width:100%;

@@ -67,6 +67,7 @@
             <ul id="errors"></ul>
         </section>
     </div>
+    <div id="bpm-preview"></div>
     <div id="settings-info">
         <p>Press <b>S</b> to toggle settings</p>
         <p>Fullscreen recommended</p>
@@ -189,9 +190,10 @@
         var gifrotation;
         function gifrotate(){
             clearTimeout(gifrotation);
+            gifrotation = setTimeout(gifrotate, 60 * 1000 / tempo * 8);
             $('body').css('backgroundImage', 'url("' + $('#preloadbg').attr('src') + '")');
             $('#preloadbg').attr('src', 'assets/img/' + Math.ceil(random() * gifcount) + '.gif');
-            gifrotation = setTimeout(gifrotate, 60 * 1000 / tempo * 8);
+            $('#bpm-preview').css('opacity', 0);
         }
         gifrotate();
 

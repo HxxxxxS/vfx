@@ -110,6 +110,20 @@ html.nocursor * {
   text-align: center;
 }
 
+#bpm-preview {
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+  color: white;
+  background: black;
+  font-size: 18px;
+  padding: 5px 10px;
+  border-radius: 5px 0px 0px 0px;
+  -webkit-transition: opacity 0.5s;
+  -moz-transition: opacity 0.5s;
+  transition: opacity 0.5s;
+}
+
 #bw {
   display: none;
   width: 100%;

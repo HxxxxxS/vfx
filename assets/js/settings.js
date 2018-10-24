@@ -35,14 +35,17 @@ function playPause() {
 }
 
 function updateTempo(value, updateBox) {
-    tempo = value;
-    if(updateBox) $('#settings input[name=tempo]').val(tempo);
-    $('body').css('animation-duration', (tempo/2) + 's');
-    $('#webcam').css('animation-duration', (60/tempo*4*(10*3)) + 's');
-    $('#videos').css('animation-duration', (60/tempo*4*(10*2)) + 's');
-    console.log('tempo:', tempo, 'bpm');
-    clearTimeout(gifrotation);
-    gifrotation = setTimeout(gifrotate, 60 * 1000 / tempo * 8);
+    if(value != tempo){
+        tempo = value;
+        clearTimeout(gifrotation);
+        gifrotation = setTimeout(gifrotate, 60 * 1000 / tempo * 8);
+        if(updateBox) $('#settings input[name=tempo]').val(tempo);
+        $('body').css('animation-duration', (tempo/2) + 's');
+        $('#webcam').css('animation-duration', (60/tempo*4*(10*3)) + 's');
+        $('#videos').css('animation-duration', (60/tempo*4*(10*2)) + 's');
+        console.log('tempo:', tempo, 'bpm');
+        $('#bpm-preview').text(Math.round(tempo * 100) / 100 + 'bpm').css('opacity', 0.88);
+    }
 }
 
 for (var i = $('#settings input').length - 1; i >= 0; i--) {
