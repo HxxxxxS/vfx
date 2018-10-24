@@ -10,10 +10,11 @@ function setupWebcam(name) {
         .then(function(stream) {
             name.srcObject = stream;
         })
-        .catch(function(err0r) {
-            console.log("Something went wrong!", err0r);
+        .catch(function(e) {
+            err0r('Webcam error: ' + e.name + '-' + e.message, e);
         });
     }
+    updateSettings();
 }
 
 function toggleWebcam() {

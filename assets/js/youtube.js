@@ -84,7 +84,6 @@ function onPlayerStateChange(event) {
 function onPlayerError(event) {
     var target = event.target;
     var id = target.h.id;
-    console.log(id, 'error:', event.data, target.getVideoUrl(), 'did not load');
-    $('#settings #errors').append('<li><b>Error:</b> <a href="'+target.getVideoUrl()+'">'+target.getVideoUrl()+'</a> threw error '+event.data+'</li>');
+    err0r(id + target.getVideoUrl() + ' did not load. Error code: ' + event.data, event);
     target.nextVideo();
 }

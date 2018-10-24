@@ -194,6 +194,11 @@
             gifrotation = setTimeout(gifrotate, 60 * 1000 / tempo * 8);
         }
         gifrotate();
+
+        function err0r(error, message){
+            console.log('error:', message, 'Full error:', error);
+            $('#settings #errors').append('<li><b>Error:</b> '+message+'</li>');
+        }
     </script>
     <script src="assets/js/webcam.js"></script>
     <script src="assets/js/youtube.js"></script>
