@@ -1,6 +1,7 @@
 @import 'bourbon/bourbon';
 
 body{
+    background-color: black;
     background-image: url(assets/img/1.gif);
     background-size: 100% 100%;
     overflow:hidden;
@@ -13,7 +14,7 @@ html.nocursor *{
 #webcam,
 #background,
 #videos{
-    @include transition(width 0.1s, height 0.1s);
+    @include transition(width 0.1s, height 0.1s, opacity 1.5s);
     position: absolute;
     left: 0;
     top: 0;
