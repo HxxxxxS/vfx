@@ -194,6 +194,7 @@
         function set_gifrotation(){
             clearInterval(gifrotation);
             gifrotation = setInterval(gifrotate, 60 * 1000 / tempo * 8);
+            gifrotate();
         }
         set_gifrotation();
 
