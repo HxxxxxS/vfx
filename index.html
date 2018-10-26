@@ -14,9 +14,7 @@
         <h4>Settings <button onclick="playPause()" style="float: right;">Play/pause all video</button></h4>
         <section id="bpm" style="float: left">
             <label for="tempo">Animation tempo (bpm):</label>
-            <input type="text" name="tempo" 
-            onkeyup="updateTempo(this.value, false)" onchange="updateTempo(this.value, false)" 
-            style="width:45px; text-align: center;" disabled>
+            <input type="text" name="tempo" style="width:45px; text-align: center;" disabled>
             <br>
             <p>
                 You can also tap <b>space</b> or just type with <b>0-9</b> to set the tempo.
@@ -126,7 +124,7 @@
                             temptempo = (temptempo[half-1] + temptempo[half]) / 2.0;
 
                         temptempo = 60 * 1000 / temptempo;
-                        updateTempo(temptempo, true);
+                        updateTempo(temptempo);
                     }
                 }
                 else if(keyCode == 78) // N
@@ -158,7 +156,7 @@
                     }else{
                         tempoinput += ''+e.key;
                     }
-                    updateTempo(tempoinput, true);
+                    updateTempo(tempoinput);
                     clearTimeout(tempoto);
                     tempoto = setTimeout(function(){
                         tempoinput = false;

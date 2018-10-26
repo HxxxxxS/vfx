@@ -34,17 +34,16 @@ function playPause() {
     playing = !playing;
 }
 
-function updateTempo(value, updateBox) {
+function updateTempo(value) {
     if(value < 10 || value > 1000) return false;
     if(value != tempo){
-        tempo = value;
+        tempo = Math.round(value * 100) / 100;
         set_gifrotation();
-        if(updateBox) $('#settings input[name=tempo]').val(tempo);
         $('body').css('animation-duration', (tempo/2) + 's');
         $('#webcam').css('animation-duration', (60/tempo*4*(10*3)) + 's');
         $('#videos').css('animation-duration', (60/tempo*4*(10*2)) + 's');
         console.log('tempo:', tempo, 'bpm');
-        $('#bpm-preview').text(Math.round(tempo * 100) / 100 + 'bpm').css('opacity', 0.88);
+        $('#bpm-preview').text(tempo + 'bpm').css('opacity', 0.88);
     }
 }
 
