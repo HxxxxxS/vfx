@@ -35,6 +35,7 @@ function playPause() {
 }
 
 function updateTempo(value, updateBox) {
+    if(value < 10 || value > 1000) return false;
     if(value != tempo){
         tempo = value;
         clearTimeout(gifrotation);
