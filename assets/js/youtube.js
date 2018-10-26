@@ -60,7 +60,7 @@ function onPlayerStateChange(event) {
     var url = new URL(target.getVideoUrl());
     var videoId = url.searchParams.get('v');
 
-    if(target.getPlayerState() == 1){
+    if(event.data == YT.PlayerState.PLAYING){
         $('#' + id).removeClass('hidden');
         if(times[videoId]){
             if(times[videoId]['start'] > target.getCurrentTime()){
@@ -76,7 +76,9 @@ function onPlayerStateChange(event) {
             }
         }
         $('#np'+id).attr('href', 'https://youtube.com/watch?v=' + videoId).text(target.getVideoData().title);
-    }else if(target.getPlayerState() != 2){
+    }else if(event.data == YT.PlayerState.BUFFERING){
+        target.setPlaybackQuality('small');
+    }else if(event.data != YT.PlayerState.PAUSED){
         $('#' + id).addClass('hidden');
     }
 }
