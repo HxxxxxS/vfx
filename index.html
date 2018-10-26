@@ -168,7 +168,7 @@
 
         });
 
-        $(document).click(gifrotate);
+        $(document).click(set_gifrotation);
         $('#settings').click(function(e) {
             e.stopPropagation();
         });
@@ -189,13 +189,15 @@
 
         var gifrotation;
         function gifrotate(){
-            clearTimeout(gifrotation);
-            gifrotation = setTimeout(gifrotate, 60 * 1000 / tempo * 8);
             $('body').css('backgroundImage', 'url("' + $('#preloadbg').attr('src') + '")');
             $('#preloadbg').attr('src', 'assets/img/' + Math.ceil(random() * gifcount) + '.gif');
             $('#bpm-preview').css('opacity', 0);
         }
-        gifrotate();
+        function set_gifrotation(){
+            clearInterval(gifrotation);
+            gifrotation = setInterval(gifrotate, 60 * 1000 / tempo * 8);
+        }
+        set_gifrotation();
 
         function err0r(error, message){
             console.log('error:', message, 'Full error:', error);

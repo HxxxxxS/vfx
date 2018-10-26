@@ -38,8 +38,7 @@ function updateTempo(value, updateBox) {
     if(value < 10 || value > 1000) return false;
     if(value != tempo){
         tempo = value;
-        clearTimeout(gifrotation);
-        gifrotation = setTimeout(gifrotate, 60 * 1000 / tempo * 8);
+        set_gifrotation();
         if(updateBox) $('#settings input[name=tempo]').val(tempo);
         $('body').css('animation-duration', (tempo/2) + 's');
         $('#webcam').css('animation-duration', (60/tempo*4*(10*3)) + 's');
