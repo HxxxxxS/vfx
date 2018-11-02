@@ -23,14 +23,12 @@ html.nocursor * {
   height: 100%;
   width: 100%;
   pointer-events: none;
+  mix-blend-mode: difference;
 }
 
 #webcam {
   display: none;
   object-fit: fill;
-  -webkit-animation-name: blendmode;
-  -moz-animation-name: blendmode;
-  animation-name: blendmode;
   -webkit-animation-iteration-count: infinite;
   -moz-animation-iteration-count: infinite;
   animation-iteration-count: infinite;
@@ -47,14 +45,7 @@ html.nocursor * {
   filter: brightness(100) contrast(25) opacity(0.25);
 }
 
-#background {
-  mix-blend-mode: difference;
-}
-
 #videos {
-  -webkit-animation-name: blendmode;
-  -moz-animation-name: blendmode;
-  animation-name: blendmode;
   -webkit-animation-iteration-count: infinite;
   -moz-animation-iteration-count: infinite;
   animation-iteration-count: infinite;
@@ -70,6 +61,12 @@ html.nocursor * {
   -webkit-animation-delay: 3s;
   -moz-animation-delay: 3s;
   animation-delay: 3s;
+}
+
+.blendmode {
+  -webkit-animation-name: blendmode;
+  -moz-animation-name: blendmode;
+  animation-name: blendmode;
 }
 
 .hidden {

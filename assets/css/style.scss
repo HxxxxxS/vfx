@@ -21,27 +21,26 @@ html.nocursor *{
     height: 100%;
     width: 100%;
     pointer-events: none;
+    mix-blend-mode: difference;
 }
 #webcam{
     display: none;
     object-fit: fill;
-    @include animation-name(blendmode);
     @include animation-iteration-count(infinite);
     @include animation-timing-function(ease);
     @include animation-duration(19s);
     @include animation-direction(alternate);
     @include filter(brightness(100) contrast(25) opacity(0.25));
 }
-#background{
-    mix-blend-mode: difference;
-}
 #videos{
-    @include animation-name(blendmode);
     @include animation-iteration-count(infinite);
     @include animation-timing-function(ease);
     @include animation-duration(21s);
     @include animation-direction(reverse);
     @include animation-delay(3s);
+}
+.blendmode{
+    @include animation-name(blendmode);
 }
 .hidden{
     position: absolute !important;

@@ -8,8 +8,8 @@
 </head>
 <body class="rotate">
     <div id="background" class="hidden"></div>
-    <video id="webcam" autoplay="true"></video>
-    <div id="videos" class="hidden"></div>
+    <video id="webcam" class="blendmode" autoplay="true"></video>
+    <div id="videos" class="blendmode hidden"></div>
     <div id="settings">
         <h4>Settings <button onclick="playPause()" style="float: right;">Play/pause all video</button></h4>
         <section id="bpm" style="float: left">
@@ -195,6 +195,11 @@
             clearInterval(gifrotation);
             gifrotation = setInterval(gifrotate, 60 * 1000 / tempo * 8);
             gifrotate();
+            for (var i = players.length - 1; i >= 0; i--) {
+                players[i].a.classList.remove("blendmode");
+                void players[i].a.offsetWidth;
+                players[i].a.classList.add("blendmode");
+            }
         }
         set_gifrotation();
 
