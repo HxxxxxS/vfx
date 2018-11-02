@@ -98,7 +98,7 @@
             var player = (e.shiftKey ? background : videos);
 
             if(!e.ctrlKey){
-                if(keyCode == 32){ // Space
+                if(keyCode == 32 || keyCode == 84){ // Space || T
                     if((Date.now() / 1000) - (taps[0] / 1000) > 2){ // Reset after 2 seconds
                         taps.splice(0);
                     }
