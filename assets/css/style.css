@@ -40,6 +40,9 @@ html.nocursor * {
   -webkit-animation-duration: 19s;
   -moz-animation-duration: 19s;
   animation-duration: 19s;
+  -webkit-animation-direction: alternate;
+  -moz-animation-direction: alternate;
+  animation-direction: alternate;
   -webkit-filter: brightness(100) contrast(25) opacity(0.25);
   filter: brightness(100) contrast(25) opacity(0.25);
 }
@@ -238,7 +241,7 @@ html.nocursor * {
   25% {
     mix-blend-mode: darken;
   }
-  60% {
+  50% {
     mix-blend-mode: difference;
   }
   75% {
@@ -255,7 +258,7 @@ html.nocursor * {
   25% {
     mix-blend-mode: darken;
   }
-  60% {
+  50% {
     mix-blend-mode: difference;
   }
   75% {
@@ -272,7 +275,7 @@ html.nocursor * {
   25% {
     mix-blend-mode: darken;
   }
-  60% {
+  50% {
     mix-blend-mode: difference;
   }
   75% {

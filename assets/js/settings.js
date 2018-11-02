@@ -40,8 +40,8 @@ function updateTempo(value) {
         tempo = Math.round(value * 100) / 100;
         set_gifrotation();
         $('body').css('animation-duration', (tempo/2) + 's');
-        $('#webcam').css('animation-duration', (60/tempo*4*(10*3)) + 's');
-        $('#videos').css('animation-duration', (60/tempo*4*(10*2)) + 's');
+        $('#webcam').css('animation-duration', (60/tempo*4*16) + 's');
+        $('#videos').css('animation-duration', (60/tempo*4*4) + 's');
         console.log('tempo:', tempo, 'bpm');
         $('#bpm-preview').text(tempo + 'bpm').css('opacity', 0.88);
     }

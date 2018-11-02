@@ -10,7 +10,7 @@
 @include keyframes(blendmode) {
     0% { mix-blend-mode: overlay }
     25% { mix-blend-mode: darken }
-    60% { mix-blend-mode: difference }
+    50% { mix-blend-mode: difference }
     75% { mix-blend-mode: lighten }
     100% { mix-blend-mode: overlay }
 }
