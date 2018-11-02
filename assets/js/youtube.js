@@ -60,6 +60,8 @@ function onPlayerStateChange(event) {
     var url = new URL(target.getVideoUrl());
     var videoId = url.searchParams.get('v');
 
+    clearTimeout(window[id].out);
+
     if(event.data == YT.PlayerState.PLAYING){
         $('#' + id).removeClass('hidden');
         if(times[videoId]){
@@ -68,7 +70,6 @@ function onPlayerStateChange(event) {
                 console.log(id,'skipping to', times[videoId]['start']);
             }else if(times[videoId]['end']){
                 var timer = times[videoId]['end'] - target.getCurrentTime();
-                clearTimeout(window[id].out);
                 window[id].out = setTimeout(function(){
                     target.nextVideo();
                 }, timer * 1000);
