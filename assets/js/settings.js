@@ -43,7 +43,7 @@ function updateTempo(value) {
         $('#webcam').css('animation-duration', (60/tempo*4*16) + 's');
         $('#videos').css('animation-duration', (60/tempo*4*4) + 's');
         console.log('tempo:', tempo, 'bpm');
-        $('#bpm-preview').text(tempo + 'bpm').css('opacity', 0.88);
+        $('#bpm-preview').text(tempo + 'bpm').css('opacity', 0.33);
     }
 }
 
