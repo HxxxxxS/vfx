@@ -57,6 +57,7 @@ function updateTempo(value) {
         $('#videos').css('animation-duration', (60/tempo*4*4) + 's');
         console.log('tempo:', tempo, 'bpm');
         $('#bpm-preview').text(tempo + 'bpm').css('opacity', 0.33);
+        $('.bpm').text(tempo);
     }
 }
 
