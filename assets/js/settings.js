@@ -1,19 +1,30 @@
-function updateSettings() {
+function updateSettings()
+{
     var filterstring = '';
-    for (var i = $('#settings #wc input').length - 1; i >= 0; i--) {
+    for (var i = $('#settings #wc input').length - 1; i >= 0; i--)
+    {
         var t = $('#settings #wc input')[i];
-        if(t.dataset.type == 'filter'){
-            if(t.type == 'checkbox'){
+        if (t.dataset.type == 'filter')
+        {
+            if (t.type == 'checkbox')
+            {
                 filterstring += t.name + '(' + (t.checked? 1 : 0) + ')';
                 localStorage[t.parentElement.id + t.dataset.type + t.name] = t.checked ? 1 : 0;
-            }else{
+            }
+            else
+            {
                 filterstring += t.name + '(' + t.value + ')';
                 localStorage[t.parentElement.id + t.dataset.type + t.name] = t.value;
             }
-        }else{
-            if(t.name == 'rotate'){
+        }
+        else
+        {
+            if (t.name == 'rotate')
+            {
                 $('#'+t.dataset.target).css('transform', 'rotate(' + 180 * (t.checked ? 1 : 0) + 'deg)');
-            }else{
+            }
+            else
+            {
                 $('#'+t.dataset.target).css(t.name,t.value);
             }
         }
@@ -23,20 +34,22 @@ function updateSettings() {
 
 var playing = true;
 
-function playPause() {
-    for (var i = players.length - 1; i >= 0; i--) {
-        if(playing) {
+function playPause()
+{
+    for (var i = players.length - 1; i >= 0; i--)
+    {
+        if (playing)
             players[i].pauseVideo();
-        }else{
+        else
             players[i].playVideo();
-        }
     }
     playing = !playing;
 }
 
 function updateTempo(value) {
-    if(value < 10 || value > 1000) return false;
-    if(value != tempo){
+    if (value < 10 || value > 1000) return false;
+    if (value != tempo)
+    {
         tempo = Math.round(value * 100) / 100;
         set_gifrotation();
         $('body').css('animation-duration', (tempo/2) + 's');
@@ -47,16 +60,17 @@ function updateTempo(value) {
     }
 }
 
-for (var i = $('#settings input').length - 1; i >= 0; i--) {
+for (var i = $('#settings input').length - 1; i >= 0; i--)
+{
     var t = $('#settings input')[i];
-    if(localStorage[t.parentElement.id + t.dataset.type + t.name]) {
-        if(t.dataset.type == 'checkbox'){
+    if (localStorage[t.parentElement.id + t.dataset.type + t.name])
+    {
+        if (t.dataset.type == 'checkbox')
             t.checked = localStorage[t.parentElement.id + t.dataset.type + t.name];
-        }else{
+        else
             t.value = localStorage[t.parentElement.id + t.dataset.type + t.name];
-        }
-        if(t.name == 'tempo'){
+
+        if (t.name == 'tempo')
             tempo = t.value;
-        }
     }
 }

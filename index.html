@@ -90,18 +90,21 @@
 
         var random = new Alea();
 
-        $.getJSON('data/times.json', function(data){
+        $.getJSON('data/times.json', function(data) {
             times = data;
         });
 
-        $(document).on('keydown', function(e){
+        $(document).on('keydown', function(e) {
 
             var keyCode = e.keyCode || e.which;
             var player = (e.shiftKey ? background : videos);
 
-            if(!e.ctrlKey){
-                if(keyCode == 32 || keyCode == 84){ // Space || T
-                    if((Date.now() / 1000) - (taps[0] / 1000) > 2){ // Reset after 2 seconds
+            if (!e.ctrlKey)
+            {
+                if (keyCode == 32 || keyCode == 84) // Space || T
+                {
+                    if ((Date.now() / 1000) - (taps[0] / 1000) > 2) // Reset taps after 2 sec
+                    {
                         taps.splice(0);
                     }
 
@@ -109,18 +112,19 @@
                     taps.length = 16;
                     var temptempo = [];
 
-                    for (var i = taps.length - 1; i >= 0; i--) {
-                        if(taps[i]){
-                            if(taps[i-1]){
-                                temptempo.push(taps[i-1] - taps[i]);
-                            }
+                    for (var i = taps.length - 1; i >= 0; i--)
+                    {
+                        if (taps[i])
+                        {
+                            if (taps[i-1]) temptempo.push(taps[i-1] - taps[i]);
                         }
                     }
 
-                    if (temptempo.length > 1) {
+                    if (temptempo.length > 1)
+                    {
                         temptempo.sort( function(a,b) {return a - b;} );
                         var half = Math.floor(temptempo.length/2);
-                        if(temptempo.length % 2)
+                        if (temptempo.length % 2)
                             temptempo = temptempo[half];
                         else
                             temptempo = (temptempo[half-1] + temptempo[half]) / 2.0;
@@ -129,42 +133,41 @@
                         updateTempo(temptempo);
                     }
                 }
-                else if(keyCode == 66) //B
+                else if (keyCode == 66) //B
                 {
                     $('#bw').toggle();
                 }
-                else if(keyCode == 78) // N
+                else if (keyCode == 78) // N
                 {
                     player.nextVideo();
                 }
-                else if(keyCode == 75) // K
+                else if (keyCode == 75) // K
                 {
                     if(player.getPlayerState() == 1)
                         player.pauseVideo();
                     else
                         player.playVideo()
                 }
-                else if(keyCode == 82) // R
+                else if (keyCode == 82) // R
                 {
                     var skipTo = Math.floor(random() * player.getDuration());
                     player.seekTo(skipTo);
                 }
-                else if(keyCode == 83) // S
+                else if (keyCode == 83) // S
                 {
                     $('html').toggleClass('nocursor');
                     $('#settings').toggle();
                     $('#settings-info').remove();
                 }
-                else if((e.key >= 0 && e.key <= 9) || e.key == '.') // Digits 0-9
+                else if ((e.key >= 0 && e.key <= 9) || e.key == '.') // Digits 0-9
                 {
-                    if(!tempoinput){
-                        tempoinput = e.key;
-                    }else{
+                    if (tempoinput)
                         tempoinput += ''+e.key;
-                    }
+                    else
+                        tempoinput = e.key;
                     updateTempo(tempoinput);
                     clearTimeout(tempoto);
-                    tempoto = setTimeout(function(){
+                    tempoto = setTimeout(function() {
                         tempoinput = false;
                     }, 1000);
                 }
@@ -177,9 +180,12 @@
             e.stopPropagation();
         });
 
-        setTimeout(function(){ $('#settings-info').css('opacity',0) }, 2500);
+        setTimeout(function(){
+            $('#settings-info').css('opacity',0)
+        }, 2500);
 
-        function resize(){
+        function resize()
+        {
             $('body').css('height', window.innerHeight + 'px');
             $('body').css('width', window.innerWidth + 'px');
         }
@@ -192,12 +198,14 @@
         });
 
         var gifrotation;
-        function gifrotate(){
+        function gifrotate()
+        {
             $('body').css('backgroundImage', 'url("' + $('#preloadbg').attr('src') + '")');
             $('#preloadbg').attr('src', 'assets/img/' + Math.ceil(random() * gifcount) + '.gif');
             $('#bpm-preview').css('opacity', 0);
         }
-        function set_gifrotation(){
+        function set_gifrotation()
+        {
             clearInterval(gifrotation);
             gifrotation = setInterval(gifrotate, 60 * 1000 / tempo * 8);
             gifrotate();
@@ -209,7 +217,8 @@
         }
         set_gifrotation();
 
-        function err0r(error, message){
+        function err0r(error, message)
+        {
             console.log('error:', message, 'Full error:', error);
             $('#settings #errors').append('<li><b>Error:</b> '+message+'</li>');
         }

@@ -6,7 +6,8 @@ tag.src = 'https://www.youtube.com/iframe_api';
 var firstScriptTag = document.getElementsByTagName('script')[0];
 firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
-function setupPlayer(name, playlist) {
+function setupPlayer(name, playlist)
+{
     return new YT.Player(name, {
         height: window.innerHeight,
         width: window.innerWidth,
@@ -30,21 +31,25 @@ function setupPlayer(name, playlist) {
     });
 }
 
-function onYouTubeIframeAPIReady() {
+function onYouTubeIframeAPIReady()
+{
     background = setupPlayer('background', 'PLTZu_i5Q06qBtm3XlJZm_WuViWJDF1l9h');
     videos = setupPlayer('videos', 'PLTZu_i5Q06qCtR4GwHMZIMQq-F1E4YBT9');
     players = [background,videos];
     $('#settings-info').css('opacity',0)
 }
 
-function onPlayerReady(event) {
+function onPlayerReady(event)
+{
     event.target.playVideo();
     setTimeout(moreParameters, 1000);
 }
 
-function moreParameters(){
+function moreParameters()
+{
     // Sue me
-    for (var i = players.length - 1; i >= 0; i--) {
+    for (var i = players.length - 1; i >= 0; i--)
+    {
         players[i].mute();
         players[i].setShuffle(true);
         players[i].setPlaybackQuality('small');
@@ -53,7 +58,8 @@ function moreParameters(){
     updateSettings();
 }
 
-function onPlayerStateChange(event) {
+function onPlayerStateChange(event)
+{
     var target = event.target;
     var id = target.h.id;
     console.log(id, target.getPlayerState());
@@ -62,13 +68,18 @@ function onPlayerStateChange(event) {
 
     clearTimeout(window[id].out);
 
-    if(event.data == YT.PlayerState.PLAYING){
+    if (event.data == YT.PlayerState.PLAYING)
+    {
         $('#' + id).removeClass('hidden');
-        if(times[videoId]){
-            if(times[videoId]['start'] > target.getCurrentTime()){
+        if (times[videoId])
+        {
+            if (times[videoId]['start'] > target.getCurrentTime())
+            {
                 target.seekTo(times[videoId]['start']);
                 console.log(id,'skipping to', times[videoId]['start']);
-            }else if(times[videoId]['end']){
+            }
+            else if(times[videoId]['end'])
+            {
                 var timer = times[videoId]['end'] - target.getCurrentTime();
                 window[id].out = setTimeout(function(){
                     target.nextVideo();
@@ -77,14 +88,15 @@ function onPlayerStateChange(event) {
             }
         }
         $('#np'+id).attr('href', 'https://youtube.com/watch?v=' + videoId).text(target.getVideoData().title);
-    }else if(event.data == YT.PlayerState.BUFFERING){
-        target.setPlaybackQuality('small');
-    }else if(event.data != YT.PlayerState.PAUSED){
-        $('#' + id).addClass('hidden');
     }
+    else if (event.data == YT.PlayerState.BUFFERING)
+        target.setPlaybackQuality('small');
+    else if (event.data != YT.PlayerState.PAUSED)
+        $('#' + id).addClass('hidden');
 }
 
-function onPlayerError(event) {
+function onPlayerError(event)
+{
     var target = event.target;
     var id = target.h.id;
     err0r(id + target.getVideoUrl() + ' did not load. Error code: ' + event.data, event);
