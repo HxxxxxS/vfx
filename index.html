@@ -204,10 +204,10 @@
             {
                 $('body').css('backgroundImage', 'url("' + $('#preloadbg').attr('src') + '")');
                 $('#preloadbg').attr('src', 'assets/img/' + Math.ceil(random() * gifcount) + '.gif');
-                if (giffreq<0.8)
+                if (giffreq<0.7)
                     giffreq += 0.01;
                 else
-                    giffreq = 0.3;
+                    giffreq = 0.4;
             }
             else
             {
