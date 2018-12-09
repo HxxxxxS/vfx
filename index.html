@@ -78,6 +78,7 @@
     <script src="assets/js/Alea.js"></script>
     <script>
         var gifcount = 330;
+        var giffreq = 0.66;
         var players = [];
         var background;
         var videos;
@@ -180,7 +181,7 @@
             e.stopPropagation();
         });
 
-        setTimeout(function(){
+        setTimeout(function() {
             $('#settings-info').css('opacity',0)
         }, 2500);
 
@@ -197,19 +198,34 @@
             resizeTimer = setTimeout(resize, 50);
         });
 
-        var gifrotation;
         function gifrotate()
         {
-            $('body').css('backgroundImage', 'url("' + $('#preloadbg').attr('src') + '")');
-            $('#preloadbg').attr('src', 'assets/img/' + Math.ceil(random() * gifcount) + '.gif');
+            if (random() < giffreq)
+            {
+                $('body').css('backgroundImage', 'url("' + $('#preloadbg').attr('src') + '")');
+                $('#preloadbg').attr('src', 'assets/img/' + Math.ceil(random() * gifcount) + '.gif');
+                if (giffreq<0.8)
+                    giffreq += 0.01;
+                else
+                    giffreq = 0.3;
+            }
+            else
+            {
+                if (videos.getPlayerState() === 1 || background.getPlayerState() === 1)
+                    $('body').css('backgroundImage', 'none');
+                else
+                    $('body').css('backgroundImage', 'assets/img/1.gif')
+            }
             $('#bpm-preview').css('opacity', 0);
         }
+        var gifrotation;
         function set_gifrotation()
         {
             clearInterval(gifrotation);
             gifrotation = setInterval(gifrotate, 60 * 1000 / tempo * 8);
             gifrotate();
-            for (var i = players.length - 1; i >= 0; i--) {
+            for (var i = players.length - 1; i >= 0; i--)
+            {
                 players[i].a.classList.remove("blendmode");
                 void players[i].a.offsetWidth;
                 players[i].a.classList.add("blendmode");
