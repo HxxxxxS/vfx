@@ -233,6 +233,13 @@
         }
         set_gifrotation();
 
+        var cto;
+        $(document).mousemove(function(event) {
+            $('html').removeClass('nocursor');
+            clearTimeout(cto);
+            cto = setTimeout(function(){ $('html').addClass('nocursor') }, 1000);
+        });
+
         function err0r(message, error)
         {
             console.log('error:', message, 'Full error:', error);
