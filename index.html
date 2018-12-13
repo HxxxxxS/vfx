@@ -185,7 +185,7 @@
         {
             if (random() < giffreq)
             {
-                $('body').css('backgroundImage', 'url("' + $('#preloadbg').attr('src') + '")');
+                $('body').css('backgroundImage', 'url("' + $('#preloadbg').attr('src') + '")').find('#background').removeClass('no-blend');
                 $('#preloadbg').attr('src', 'assets/img/' + Math.ceil(random() * gifcount) + '.gif');
                 if (giffreq<0.7)
                     giffreq += 0.01;
@@ -195,7 +195,7 @@
             else
             {
                 if (videos.getPlayerState() === 1 || background.getPlayerState() === 1)
-                    $('body').css('backgroundImage', 'none').find('#background').toggleClass('no-blend');
+                    $('body').css('backgroundImage', 'none').find('#background').addClass('no-blend');
                 else
                     $('body').css('backgroundImage', 'assets/img/1.gif')
             }
