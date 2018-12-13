@@ -86,8 +86,10 @@
         var videos;
         var vhs_static;
         var times = [];
-        var taps = [];
         var tempo = 100;
+        var tapfirst = 0;
+        var taplast = 0;
+        var tapcount = 0;
         var tempoinput;
         var tempoto;
 
@@ -106,35 +108,14 @@
             {
                 if (keyCode == 32 || keyCode == 84) // Space || T
                 {
-                    if ((Date.now() / 1000) - (taps[0] / 1000) > 2) // Reset taps after 2 sec
-                    {
-                        taps.splice(0);
-                    }
-
-                    taps.unshift(Date.now());
-                    taps.length = 16;
-                    var temptempo = [];
-
-                    for (var i = taps.length - 1; i >= 0; i--)
-                    {
-                        if (taps[i])
-                        {
-                            if (taps[i-1]) temptempo.push(taps[i-1] - taps[i]);
-                        }
-                    }
-
-                    if (temptempo.length > 1)
-                    {
-                        temptempo.sort( function(a,b) {return a - b;} );
-                        var half = Math.floor(temptempo.length/2);
-                        if (temptempo.length % 2)
-                            temptempo = temptempo[half];
-                        else
-                            temptempo = (temptempo[half-1] + temptempo[half]) / 2.0;
-
-                        temptempo = 60 * 1000 / temptempo;
-                        updateTempo(temptempo);
-                    }
+                    var tap = Date.now();
+                    if ((tap - taplast) > 1000 * 2) tapcount = 0; // Reset every 2 seconds
+                    if (tapcount)
+                        updateTempo(60 * 1000 * tapcount / (tap - tapfirst));
+                    else
+                        tapfirst = tap;
+                    tapcount++;
+                    taplast = tap;
                 }
                 else if (keyCode == 66) //B
                 {
