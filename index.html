@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
-<body class="rotate">
+<body>
     <div id="background" class="hidden"></div>
     <video id="webcam" class="blendmode" autoplay="true"></video>
     <div id="videos" class="blendmode hidden"></div>
@@ -195,7 +195,7 @@
             else
             {
                 if (videos.getPlayerState() === 1 || background.getPlayerState() === 1)
-                    $('body').css('backgroundImage', 'none');
+                    $('body').css('backgroundImage', 'none').find('#background').toggleClass('no-blend');
                 else
                     $('body').css('backgroundImage', 'assets/img/1.gif')
             }

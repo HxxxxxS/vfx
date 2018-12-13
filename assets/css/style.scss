@@ -42,6 +42,9 @@ html.nocursor *{
 .blendmode{
     @include animation-name(blendmode);
 }
+.no-blend{
+    mix-blend-mode: unset !important;
+}
 .hidden{
     position: absolute !important;
     top: -99999px !important;
