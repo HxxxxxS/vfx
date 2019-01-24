@@ -90,19 +90,21 @@ function pollLastFm(user) {
             lastfmtime = 60000;
         }
         if(now_playing !== song){
-            if(now_playing) videos.nextVideo();
+            if(now_playing){
+                videos.nextVideo();
+            }
             now_playing = song;
             lastfmtime = 30000;
         }
-    });
-    if(lastfmtime>5000) lastfmtime-=1500;
-    lastfmTO = setTimeout(function(){
         if(json.hasOwnProperty('title')){
-            pollLastFm(user);
+            lastfmTO = setTimeout(function(){
+                pollLastFm(user);
+            }, lastfmtime);
         }else{
             err0r('lastfm error', json);
         }
-    }, lastfmtime);
+    });
+    if(lastfmtime>5000) lastfmtime-=1500;
 }
 
 function startlastfm() {
