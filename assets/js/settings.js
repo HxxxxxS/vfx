@@ -75,3 +75,36 @@ for (var i = $('#settings input').length - 1; i >= 0; i--)
             tempo = t.value;
     }
 }
+
+var lastfmTO;
+var lastfmtime = 30000;;
+var now_playing = false;
+
+function pollLastFm(user) {
+    clearTimeout(lastfmTO);
+    $.getJSON('/lastfm/now_playing/'+user, function(json) {
+        if(json.now_playing == 1 && json.artist['#text'] && json.title){
+            var song = json.artist['mbid']+'-'+json.artist['#text']+'-'+json.title;
+        }else if(!json.now_playing && json.artist.name && json.title){
+            var song = json.artist['mbid']+'-'+json.artist['#text']+'-'+json.title;
+            lastfmtime = 60000;
+        }
+        if(now_playing !== song){
+            if(now_playing) videos.nextVideo();
+            now_playing = song;
+            lastfmtime = 30000;
+        }
+    });
+    if(lastfmtime>5000) lastfmtime-=1500;
+    lastfmTO = setTimeout(function(){
+        if(json.hasOwnProperty('title')){
+            pollLastFm(user);
+        }
+    }, lastfmtime);
+}
+
+function startlastfm() {
+    user = $('#settings input[name="lastfm-user"]').val();
+    clearTimeout(lastfmTO);
+    lastfmTO = setTimeout(function() { pollLastFm(user) }, 250);
+}

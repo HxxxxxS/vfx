@@ -11,7 +11,7 @@ function setupPlayer(name, playlist)
     return new YT.Player(name, {
         height: window.innerHeight,
         width: window.innerWidth,
-        playerVars: 
+        playerVars:
         {
             listType:'playlist',
             list: playlist,
