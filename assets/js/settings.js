@@ -90,11 +90,13 @@ function pollLastFm(user) {
             lastfmtime = 60000;
         }
         if(now_playing !== song){
+            lastfmtime = 30000;
             if(now_playing){
                 videos.nextVideo();
+            }else{
+                lastfmtime = 10000;
             }
             now_playing = song;
-            lastfmtime = 30000;
         }
         if(json.hasOwnProperty('title')){
             lastfmTO = setTimeout(function(){
