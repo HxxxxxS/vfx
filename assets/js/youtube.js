@@ -102,3 +102,24 @@ function onPlayerError(event)
     err0r(id + target.getVideoUrl() + ' did not load. Error code: ' + event.data, event);
     target.nextVideo();
 }
+
+function newVideo()
+{
+    var layers = {};
+    for (var i = players.length - 1; i >= 0; i--)
+    {
+        var target = players[i];
+        layers[i] = target.getDuration();
+        var url = new URL(target.getVideoUrl());
+        var videoId = url.searchParams.get('v');
+        if (times[videoId])
+        {
+            if (times[videoId]['start'])
+                target[i] -= times[videoId]['start'];
+            if (times[videoId]['end'])
+                target[i] -= times[videoId]['end'];
+            target[i] -= target.getCurrentTime();
+        }
+    }
+    players[Object.keys(layers).reduce(function(a, b){ return layers[a] > layers[b] ? a : b })].nextVideo();
+}

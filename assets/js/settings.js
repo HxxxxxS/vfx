@@ -92,7 +92,7 @@ function pollLastFm(user) {
         if(now_playing !== song){
             lastfmtime = 30000;
             if(now_playing){
-                videos.nextVideo();
+                newVideo();
             }else{
                 lastfmtime = 10000;
             }
