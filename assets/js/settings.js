@@ -82,7 +82,7 @@ var now_playing = false;
 
 function pollLastFm(user) {
     clearTimeout(lastfmTO);
-    $.getJSON('/lastfm/now_playing/'+user, function(json) {
+    $.getJSON('https://han.sx/lastfm/now_playing/'+user, function(json) {
         if(json.now_playing == 1 && json.artist['#text'] && json.title){
             var song = json.artist['mbid']+'-'+json.artist['#text']+'-'+json.title;
         }else if(!json.now_playing && json.artist.name && json.title){
@@ -99,6 +99,8 @@ function pollLastFm(user) {
     lastfmTO = setTimeout(function(){
         if(json.hasOwnProperty('title')){
             pollLastFm(user);
+        }else{
+            err0r('lastfm error', json);
         }
     }, lastfmtime);
 }
@@ -108,3 +110,10 @@ function startlastfm() {
     clearTimeout(lastfmTO);
     lastfmTO = setTimeout(function() { pollLastFm(user) }, 250);
 }
+
+$(document).ready(function(){
+    user = $('#settings input[name="lastfm-user"]').val();
+    if(user){
+        startlastfm();
+    }
+});
