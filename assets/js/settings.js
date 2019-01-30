@@ -77,7 +77,7 @@ for (var i = $('#settings input').length - 1; i >= 0; i--)
 }
 
 var lastfmTO;
-var lastfmtime = 30000;
+var lastfmtime = 60000;
 var now_playing = false;
 
 function pollLastFm(user)
