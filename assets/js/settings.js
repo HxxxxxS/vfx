@@ -106,7 +106,7 @@ function pollLastFm(user)
             err0r('lastfm error: ', json);
         }
     });
-    if(lastfmtime>5000) lastfmtime-=1500;
+    if (lastfmtime > 2666) lastfmtime = lastfmtime - (lastfmtime / 3); // 60 -> 40 -> 27 -> 9 -> 6 -> 4 -> 2.66
 }
 
 function startlastfm()
