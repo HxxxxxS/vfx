@@ -24,7 +24,9 @@
             </p>
             <label for="bpm-toggle">Toggle BPM label in bottom right corner</label>
             <input type="checkbox" name="bpm-toggle" onclick="$('#bpm-preview').toggle()" checked>
-            <label for="lastfm-user">Insert last.fm username to trigger some events when your music changes (whitelist driven, see console output)</label>
+        </section>
+        <section id="lastfm">
+            <label for="lastfm-user">Insert last.fm username to trigger some events when your music changes (experimental)</label>
             <input type="text" name="lastfm-user" onkeyup="startlastfm()">
         </section>
         <button onclick="$('#bw').toggle()" style="float: right">Toggle Black/White mode</button>
