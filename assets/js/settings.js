@@ -77,47 +77,50 @@ for (var i = $('#settings input').length - 1; i >= 0; i--)
 }
 
 var lastfmTO;
-var lastfmtime = 30000;;
+var lastfmtime = 30000;
 var now_playing = false;
 
-function pollLastFm(user) {
+function pollLastFm(user)
+{
     clearTimeout(lastfmTO);
-    $.getJSON('https://han.sx/lastfm/now_playing/'+user, function(json) {
-        if(json.now_playing == 1 && json.artist['#text'] && json.title){
-            var song = json.artist['mbid']+'-'+json.artist['#text']+'-'+json.title;
-        }else if(!json.now_playing && json.artist.name && json.title){
-            var song = json.artist['mbid']+'-'+json.artist['#text']+'-'+json.title;
-            lastfmtime = 60000;
-        }
-        if(now_playing !== song){
-            lastfmtime = 30000;
-            if(now_playing){
-                newVideo();
-            }else{
-                lastfmtime = 10000;
+    $.getJSON('https://han.sx/lastfm/now_playing/' + user, function(json)
+    {
+        if (json.hasOwnProperty('title'))
+        {
+            if (json.artist['#text'] && json.title)
+                var song = json.artist['mbid'] + '-' + json.artist['#text'] + '-' + json.title;
+
+            if (now_playing !== song)
+            {
+                lastfmtime = 30000;
+                if (now_playing)
+                    newVideo();
+                else
+                    lastfmtime = 10000;
+                now_playing = song;
             }
-            now_playing = song;
+            lastfmTO = setTimeout(function(){ pollLastFm(user) }, lastfmtime);
         }
-        if(json.hasOwnProperty('title')){
-            lastfmTO = setTimeout(function(){
-                pollLastFm(user);
-            }, lastfmtime);
-        }else{
-            err0r('lastfm error', json);
+        else
+        {
+            err0r('lastfm error: ', json);
         }
     });
     if(lastfmtime>5000) lastfmtime-=1500;
 }
 
-function startlastfm() {
+function startlastfm()
+{
     user = $('#settings input[name="lastfm-user"]').val();
     clearTimeout(lastfmTO);
     lastfmTO = setTimeout(function() { pollLastFm(user) }, 250);
 }
 
-$(document).ready(function(){
+$(document).ready(function()
+{
     user = $('#settings input[name="lastfm-user"]').val();
-    if(user){
+    if (user)
+    {
         startlastfm();
     }
 });
