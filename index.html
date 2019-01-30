@@ -231,7 +231,7 @@
 
         function err0r(message, error)
         {
-            console.log('error:', message, 'Full error:', error);
+            console.log({message: message, error: error});
             $('#settings #errors').append('<li><b>Error:</b> '+message+'</li>');
         }
     </script>
