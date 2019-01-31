@@ -99,7 +99,7 @@ function onPlayerError(event)
 {
     var target = event.target;
     var id = target.h.id;
-    err0r(id + target.getVideoUrl() + ' did not load. Error code: ' + event.data, event);
+    err0r(id + ' ' + target.getVideoUrl() + ' did not load. Error code: ' + event.data, event);
     target.nextVideo();
 }
 
