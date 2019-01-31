@@ -114,11 +114,8 @@ function newVideo()
         var videoId = url.searchParams.get('v');
         if (times[videoId])
         {
-            if (times[videoId]['start'])
-                target[i] -= times[videoId]['start'];
-            if (times[videoId]['end'])
-                target[i] -= times[videoId]['end'];
-            target[i] -= target.getCurrentTime();
+            if (times[videoId]['end']) layers[i] -= times[videoId]['end'];
+            layers[i] -= target.getCurrentTime();
         }
     }
     players[Object.keys(layers).reduce(function(a, b){ return layers[a] > layers[b] ? a : b })].nextVideo();
