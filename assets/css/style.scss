@@ -14,7 +14,6 @@ html.nocursor *{
 #webcam,
 #background,
 #videos{
-    @include transition(width 0.1s, height 0.1s, opacity 1.5s);
     position: absolute;
     left: 0;
     top: 0;
@@ -22,6 +21,9 @@ html.nocursor *{
     width: 100%;
     pointer-events: none;
     mix-blend-mode: difference;
+    &:not(.hidden){
+        @include transition(width 0.1s, height 0.1s, opacity 1s, transform 16s ease);
+    }
 }
 #webcam{
     display: none;
@@ -46,9 +48,10 @@ html.nocursor *{
     mix-blend-mode: unset !important;
 }
 .hidden{
-    position: absolute !important;
-    top: -99999px !important;
-    left: -999999px !important;
+    //position: absolute !important;
+    //top: -99999px !important;
+    //left: -999999px !important;
+    transform: rotate(15deg) scale(2);
     opacity: 0 !important;
 }
 #settings{

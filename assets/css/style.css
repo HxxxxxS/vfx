@@ -14,9 +14,6 @@ html.nocursor * {
 #webcam,
 #background,
 #videos {
-  -webkit-transition: width 0.1s, height 0.1s, opacity 1.5s;
-  -moz-transition: width 0.1s, height 0.1s, opacity 1.5s;
-  transition: width 0.1s, height 0.1s, opacity 1.5s;
   position: absolute;
   left: 0;
   top: 0;
@@ -24,6 +21,13 @@ html.nocursor * {
   width: 100%;
   pointer-events: none;
   mix-blend-mode: difference;
+}
+#webcam:not(.hidden),
+#background:not(.hidden),
+#videos:not(.hidden) {
+  -webkit-transition: width 0.1s, height 0.1s, opacity 1s, -webkit-transform 16s ease;
+  -moz-transition: width 0.1s, height 0.1s, opacity 1s, -moz-transform 16s ease;
+  transition: width 0.1s, height 0.1s, opacity 1s, transform 16s ease;
 }
 
 #webcam {
@@ -74,9 +78,7 @@ html.nocursor * {
 }
 
 .hidden {
-  position: absolute !important;
-  top: -99999px !important;
-  left: -999999px !important;
+  transform: rotate(15deg) scale(2);
   opacity: 0 !important;
 }
 
