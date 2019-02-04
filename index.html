@@ -166,6 +166,25 @@
                 {
                     newVideo();
                 }
+                else if (keyCode == 76) // L
+                {
+                    var t = 60/tempo*16;
+                    if( !window[player.a.id].looped )
+                    {
+                        player.seekTo(player.getCurrentTime() - t);
+                        window[player.a.id].loop = setInterval(function() {
+                            player.seekTo(player.getCurrentTime() - t);
+                        }, t * 1000);
+                        window[player.a.id].looped = true;
+                        $('#np'+player.a.id).addClass('looped');
+                    }
+                    else
+                    {
+                        clearInterval(window[player.a.id].loop);
+                        window[player.a.id].looped = false;
+                        $('#np'+player.a.id).removeClass('looped');
+                    }
+                }
             }
 
         });

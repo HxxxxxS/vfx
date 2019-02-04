@@ -94,9 +94,12 @@ html.nocursor * {
   min-height: 100px;
   display: none;
 }
-
 #settings * {
   cursor: initial !important;
+}
+#settings #footer a.looped:after {
+  display: inline;
+  content: '*';
 }
 
 #settings [data-target="webcam"] {
