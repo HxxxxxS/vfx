@@ -199,7 +199,6 @@
 
         });
 
-        $(document).click(set_gifrotation);
         $('#settings').click(function(e) {
             e.stopPropagation();
         });
@@ -255,6 +254,7 @@
             }
         }
         set_gifrotation();
+        $(document).click(set_gifrotation);
 
         var cto;
         $(document).mousemove(function(event) {
