@@ -99,24 +99,22 @@ function onPlayerError(event)
 {
     var target = event.target;
     var id = target.h.id;
-    err0r(id + target.getVideoUrl() + ' did not load. Error code: ' + event.data, event);
+    err0r(id + ' ' + target.getVideoUrl() + ' did not load. Error code: ' + event.data, event);
     target.nextVideo();
 }
 
 function newVideo()
 {
-    var layers = {};
+    var arr = [];
     for (var i = players.length - 1; i >= 0; i--)
     {
         var target = players[i];
-        layers[i] = target.getDuration();
+        arr[i] = target.getDuration();
         var url = new URL(target.getVideoUrl());
         var videoId = url.searchParams.get('v');
         if (times[videoId])
-        {
-            if (times[videoId]['end']) layers[i] -= times[videoId]['end'];
-            layers[i] -= target.getCurrentTime();
-        }
+            if (times[videoId]['end']) arr[i] = times[videoId]['end'];
+        arr[i] -= target.getCurrentTime();
     }
-    players[Object.keys(layers).reduce(function(a, b){ return layers[a] > layers[b] ? a : b })].nextVideo();
+    players[Object.keys(arr).reduce(function(a, b){ return arr[a] < arr[b] ? a : b })].nextVideo();
 }
