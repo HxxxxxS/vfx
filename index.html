@@ -12,24 +12,6 @@
     <div id="videos" class="blendmode hidden"></div>
     <div id="settings">
         <h4>Settings <button onclick="playPause()" style="float: right;">Play/pause all video</button></h4>
-        <section id="bpm" style="float: left">
-            <p>
-                Animation tempo:
-                <strong class="bpm">100</strong> BPM
-            </p>
-            <p>
-                You can tap <b>space</b> or <b>T</b> or just type with <b>0-9</b> to set the tempo.
-                <br>
-                Mousepress anywhere on screen to mark the start of a bar.
-            </p>
-            <label for="bpm-toggle">Toggle BPM label in bottom right corner</label>
-            <input type="checkbox" name="bpm-toggle" onclick="$('#bpm-preview').toggle()" checked>
-        </section>
-        <section id="lastfm">
-            <label for="lastfm-user">Insert last.fm username to trigger some events when your music changes (experimental)</label>
-            <input type="text" name="lastfm-user" onkeyup="startlastfm()">
-        </section>
-        <button onclick="$('#bw').toggle()" style="float: right">Toggle Black/White mode</button>
         <div class="clearfix"></div>
         <hr>
         <section id="wc">
@@ -50,23 +32,50 @@
         </section>
         <hr>
         <section id="text">
-            <p>Press <b>S</b> to toggle settings</p>
             <p>
+                <b>Global hotkeys:</b>
+                <ul>
+                    <li><b>S</b>: Toggle settings</li>
+                    <li><b>X</b>: Go to next video on the videoplayer with least remaining time</li>
+                    <li><b>B</b>: Toggle B/W mode</li>
+                    <li><b>T</b>/<b>space</b>: Tap to set tempo</li>
+                    <li><b>Mouse1</b>: Set the beginning of a bar, to adjust animation tempo</li>
+                </ul>
                 <b>Video hotkeys:</b>
-                <p><b>Shift</b>-modifier selects background layer instead of top layer</p>
                 <ul>
                     <li><b>N</b>: Next video</li>
                     <li><b>K</b>: Play/pause</li>
                     <li><b>R</b>: Skip to random point in video.</li>
-                    <li><b>B</b>: Toggle B/W mode</li>
+                    <li><b>L</b>: Loop last few bars of video</li>
                 </ul>
+                <p><b>Shift</b>-modifier selects background layer instead of top layer</p>
             </p>
+        </section>
+        <hr>
+        <section id="bpm">
+            <p style="float:left">
+                Animation tempo:
+                <strong class="bpm">100</strong> BPM
+            </p>
+            <p style="float:right">
+                <input type="checkbox" name="bpm-toggle" onclick="$('#bpm-preview').toggle()">
+                <label for="bpm-toggle">View BPM label in bottom right corner</label>
+            </p>
+        </section>
+        <div class="clearfix"></div>
+        <hr>
+        <section id="lastfm">
+            <label for="lastfm-user">Insert last.fm username to trigger some events when your music changes (experimental)</label>
+            <input type="text" name="lastfm-user" onkeyup="startlastfm()">
         </section>
         <hr>
         <section id="footer">
             <p>Now playing:</p>
             <p>
                 Foreground: <a id="npvideos" src="#" target="_blank"></a>, Background: <a id="npbackground" href="#" target="_blank"></a>
+            </p>
+            <p id="loopinfo" style="display: none">
+                <small><b>*</b> means a video is <b>L</b>ooped</small>
             </p>
             <hr>
             <p>Source code available at <a href="https://github.com/HxxxxxS/vfx">https://github.com/HxxxxxS/vfx</a></p>
@@ -129,6 +138,7 @@
                 }
                 else if (keyCode == 78) // N
                 {
+                    player.a.classList.add('hidden');
                     player.nextVideo();
                 }
                 else if (keyCode == 75) // K
@@ -160,6 +170,30 @@
                     tempoto = setTimeout(function() {
                         tempoinput = false;
                     }, 1000);
+                }
+                else if (keyCode == 88) // X
+                {
+                    newVideo();
+                }
+                else if (keyCode == 76) // L
+                {
+                    var t = 60/tempo*16;
+                    if( !window[player.a.id].looped )
+                    {
+                        player.seekTo(player.getCurrentTime() - t);
+                        window[player.a.id].loop = setInterval(function() {
+                            player.seekTo(player.getCurrentTime() - t);
+                        }, t * 1000);
+                        window[player.a.id].looped = true;
+                        $('#np'+player.a.id).addClass('looped');
+                        $('#loopinfo').show();
+                    }
+                    else
+                    {
+                        clearInterval(window[player.a.id].loop);
+                        window[player.a.id].looped = false;
+                        $('#np'+player.a.id).removeClass('looped');
+                    }
                 }
             }
 

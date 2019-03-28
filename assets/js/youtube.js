@@ -118,3 +118,4 @@ function newVideo()
     }
     players[Object.keys(arr).reduce(function(a, b){ return arr[a] < arr[b] ? a : b })].nextVideo();
 }
+

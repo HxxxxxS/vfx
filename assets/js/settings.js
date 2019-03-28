@@ -20,13 +20,9 @@ function updateSettings()
         else
         {
             if (t.name == 'rotate')
-            {
                 $('#'+t.dataset.target).css('transform', 'rotate(' + 180 * (t.checked ? 1 : 0) + 'deg)');
-            }
             else
-            {
                 $('#'+t.dataset.target).css(t.name,t.value);
-            }
         }
     }
     $('#webcam').css('filter', filterstring);
