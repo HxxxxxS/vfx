@@ -93,7 +93,7 @@
     <script src="assets/js/Alea.js"></script>
     <script>
         var gifcount = 331;
-        var giffreq = 0.66;
+        var giffreq = 0.33;
         var players = [];
         var background;
         var videos;
@@ -227,10 +227,10 @@
             {
                 $('body').css('backgroundImage', 'url("' + $('#preloadbg').attr('src') + '")').find('#background').removeClass('no-blend');
                 $('#preloadbg').attr('src', 'assets/img/' + Math.ceil(random() * gifcount) + '.gif');
-                if (giffreq<0.7)
+                if (giffreq<0.55)
                     giffreq += 0.01;
                 else
-                    giffreq = 0.4;
+                    giffreq = 0.2;
             }
             else
             {
