@@ -53,8 +53,8 @@ function moreParameters()
         players[i].mute();
         players[i].setShuffle(true);
         players[i].setPlaybackQuality('small');
+        players[i].nextVideo();
     }
-    videos.nextVideo();
     updateSettings();
 }
 
