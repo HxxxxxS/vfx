@@ -36,12 +36,13 @@ function onYouTubeIframeAPIReady()
     background = setupPlayer('background', 'PLTZu_i5Q06qBtm3XlJZm_WuViWJDF1l9h');
     videos = setupPlayer('videos', 'PLTZu_i5Q06qCtR4GwHMZIMQq-F1E4YBT9');
     players = [background,videos];
-    $('#settings-info').css('opacity',0)
+    $('#settings-info').css('opacity',0);
+    set_gifrotation();
+    $(document).click(set_gifrotation);
 }
 
 function onPlayerReady(event)
 {
-    event.target.playVideo();
     setTimeout(moreParameters, 1000);
 }
 
@@ -88,10 +89,11 @@ function onPlayerStateChange(event)
         }
         $('#np'+id).attr('href', 'https://youtube.com/watch?v=' + videoId).text(target.getVideoData().title);
     }
-    else if (event.data == YT.PlayerState.BUFFERING)
-        target.setPlaybackQuality('small');
-    else if (event.data != YT.PlayerState.PAUSED)
+    else
+    {
         $('#' + id).addClass('hidden');
+        if (Math.random() > 0.5) $('#' + id).addClass('odd'); // Sometimes rotate it the other way
+    }
 }
 
 function onPlayerError(event)

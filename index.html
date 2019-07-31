@@ -9,7 +9,7 @@
 <body>
     <div id="background" class="hidden"></div>
     <video id="webcam" class="blendmode" autoplay="true"></video>
-    <div id="videos" class="blendmode hidden"></div>
+    <div id="videos" class="blendmode hidden odd"></div>
     <div id="settings">
         <h4>Settings <button onclick="playPause()" style="float: right;">Play/pause all video</button></h4>
         <div class="clearfix"></div>
@@ -27,7 +27,7 @@
             <label for="brightness" data-target="webcam">Brightness:</label>
             <input type="range" min="1" max="150" value="10" class="slider" name="brightness" data-type="filter" data-target="webcam" onchange="updateSettings();">
             <label for="opacity" data-target="webcam">Opacity:</label>
-            <input type="range" min="0" max="1" value="0.5" step="0.05" class="slider" name="opacity" 
+            <input type="range" min="0" max="1" value="0.5" step="0.05" class="slider" name="opacity"
             data-target="webcam" onchange="updateSettings();">
         </section>
         <hr>
@@ -253,8 +253,6 @@
                 players[i].a.classList.add("blendmode");
             }
         }
-        set_gifrotation();
-        $(document).click(set_gifrotation);
 
         var cto;
         $(document).mousemove(function(event) {

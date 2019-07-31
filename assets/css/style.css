@@ -81,6 +81,9 @@ html.nocursor * {
   transform: rotate(15deg) scale(2);
   opacity: 0 !important;
 }
+.hidden.odd {
+  transform: rotate(-15deg) scale(2.5);
+}
 
 #settings {
   background: white;
