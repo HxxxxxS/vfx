@@ -53,6 +53,9 @@ html.nocursor *{
     //left: -999999px !important;
     transform: rotate(15deg) scale(2);
     opacity: 0 !important;
+    &.odd{
+        transform: rotate(-15deg) scale(2.5);
+    }
 }
 #settings{
     background:white;
