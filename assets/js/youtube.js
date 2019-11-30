@@ -91,8 +91,14 @@ function onPlayerStateChange(event)
     }
     else
     {
-        $('#' + id).addClass('hidden');
-        if (Math.random() > 0.5) $('#' + id).addClass('odd'); // Sometimes rotate it the other way
+        if (Math.random() < 0.5)
+        {
+            $('#' + id).addClass('hidden');
+        }
+        else
+        {
+            $('#' + id).addClass('hidden-odd');
+        }
     }
 }
 
