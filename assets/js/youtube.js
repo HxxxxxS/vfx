@@ -71,6 +71,7 @@ function onPlayerStateChange(event)
     if (event.data == YT.PlayerState.PLAYING)
     {
         $('#' + id).removeClass('hidden');
+        $('#' + id).removeClass('hidden-odd');
         if (times[videoId])
         {
             if (times[videoId]['start'] > target.getCurrentTime())
