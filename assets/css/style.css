@@ -81,6 +81,7 @@ html.nocursor * {
   transform: rotate(15deg) scale(2);
   opacity: 0 !important;
 }
+
 .hidden-odd {
   transform: rotate(-15deg) scale(2.5);
   opacity: 0 !important;
@@ -139,14 +140,13 @@ html.nocursor * {
 }
 
 #bw {
-  display: none;
   width: 100%;
   height: 100%;
   background: black;
-  mix-blend-mode: color;
   position: absolute;
   top: 0px;
   left: 0px;
+  opacity: 0;
 }
 
 .clearfix:after {
@@ -415,6 +415,57 @@ html.nocursor * {
     -ms-transform: scale(1.2) rotate(0deg);
     -o-transform: scale(1.2) rotate(0deg);
     transform: scale(1.2) rotate(0deg);
+  }
+}
+@-webkit-keyframes shutter {
+  0% {
+    opacity: 1;
+  }
+  25% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  75% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@-moz-keyframes shutter {
+  0% {
+    opacity: 1;
+  }
+  25% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  75% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes shutter {
+  0% {
+    opacity: 1;
+  }
+  25% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  75% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
   }
 }
 
