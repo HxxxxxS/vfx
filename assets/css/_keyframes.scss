@@ -28,3 +28,10 @@
     75% { @include transform(scale(1.4) rotate(4deg)); }
     100% { @include transform(scale(1.2) rotate(0deg)); }
 }
+@include keyframes(shutter) {
+    0%{ opacity: 1 }
+    25% { opacity: 0 }
+    50% { opacity: 1 }
+    75% { opacity: 0 }
+    100% { opacity: 1 }
+}

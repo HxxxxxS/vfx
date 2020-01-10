@@ -30,6 +30,11 @@
             <input type="range" min="0" max="1" value="0.5" step="0.05" class="slider" name="opacity"
             data-target="webcam" onchange="updateSettings();">
         </section>
+        <section id="audio">
+            <p>Audio settings:</p>
+            <button name="dbwatch" onclick="startdBWatch()">Start dB Watch</button>
+            <label for="dbwatch">Listens to audio output and adds a shutter effect based on gain</label>
+        </section>
         <hr>
         <section id="text">
             <p>
@@ -58,8 +63,8 @@
                 <strong class="bpm">100</strong> BPM
             </p>
             <p style="float:right">
-                <input type="checkbox" name="bpm-toggle" onclick="$('#bpm-preview').toggle()">
-                <label for="bpm-toggle">View BPM label in bottom right corner</label>
+                <input type="checkbox" name="bpm-toggle" onclick="$('#bpm-preview').toggle(); this.blur();">
+                <label for="bpm-toggle">Show BPM label in bottom right corner</label>
             </p>
         </section>
         <div class="clearfix"></div>
@@ -92,7 +97,7 @@
     <script src="assets/js/jquery.js"></script>
     <script src="assets/js/Alea.js"></script>
     <script>
-        var gifcount = 374;
+        var gifcount = 372;
         var giffreq = 0.33;
         var players = [];
         var background;
@@ -270,5 +275,7 @@
     <script src="assets/js/webcam.js"></script>
     <script src="assets/js/youtube.js"></script>
     <script src="assets/js/settings.js"></script>
+    <script src="assets/js/volume-meter.js"></script>
+    <script src="assets/js/audio.js"></script>
 </body>
 </html>
