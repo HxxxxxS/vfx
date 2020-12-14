@@ -22,9 +22,9 @@ html.nocursor * {
   pointer-events: none;
   mix-blend-mode: difference;
 }
-#webcam:not(.hidden),
-#background:not(.hidden),
-#videos:not(.hidden) {
+#webcam:not(.hidden):not(.hidden-odd),
+#background:not(.hidden):not(.hidden-odd),
+#videos:not(.hidden):not(.hidden-odd) {
   -webkit-transition: width 0.1s, height 0.1s, opacity 1s, -webkit-transform 16s ease;
   -moz-transition: width 0.1s, height 0.1s, opacity 1s, -moz-transform 16s ease;
   transition: width 0.1s, height 0.1s, opacity 1s, transform 16s ease;
@@ -77,14 +77,13 @@ html.nocursor * {
   mix-blend-mode: unset !important;
 }
 
-.hidden {
+.hidden, .hidden-odd {
   transform: rotate(15deg) scale(2);
   opacity: 0 !important;
 }
 
 .hidden-odd {
   transform: rotate(-15deg) scale(2.5);
-  opacity: 0 !important;
 }
 
 #settings {

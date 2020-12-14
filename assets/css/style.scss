@@ -52,8 +52,8 @@ html.nocursor *{
     opacity: 0 !important;
 }
 .hidden-odd{
+    @extend .hidden;
     transform: rotate(-15deg) scale(2.5);
-    opacity: 0 !important;
 }
 #settings{
     background:white;
