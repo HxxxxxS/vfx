@@ -62,7 +62,7 @@ function moreParameters()
 function onPlayerStateChange(event)
 {
     var target = event.target;
-    var id = target.f.id;
+    var id = target.h.id;
     var url = new URL(target.getVideoUrl());
     var videoId = url.searchParams.get('v');
 
