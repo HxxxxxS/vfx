@@ -138,7 +138,7 @@
                 }
                 else if (keyCode == 78) // N
                 {
-                    player.f.classList.add('hidden');
+                    player.h.classList.add('hidden');
                     player.nextVideo();
                 }
                 else if (keyCode == 75) // K
@@ -178,21 +178,21 @@
                 else if (keyCode == 76) // L
                 {
                     var t = 60/tempo*16;
-                    if( !window[player.f.id].looped )
+                    if( !window[player.h.id].looped )
                     {
                         player.seekTo(player.getCurrentTime() - t);
-                        window[player.f.id].loop = setInterval(function() {
+                        window[player.h.id].loop = setInterval(function() {
                             player.seekTo(player.getCurrentTime() - t);
                         }, t * 1000);
-                        window[player.f.id].looped = true;
-                        $('#np'+player.f.id).addClass('looped');
+                        window[player.h.id].looped = true;
+                        $('#np'+player.h.id).addClass('looped');
                         $('#loopinfo').show();
                     }
                     else
                     {
-                        clearInterval(window[player.f.id].loop);
-                        window[player.f.id].looped = false;
-                        $('#np'+player.f.id).removeClass('looped');
+                        clearInterval(window[player.h.id].loop);
+                        window[player.h.id].looped = false;
+                        $('#np'+player.h.id).removeClass('looped');
                     }
                 }
             }
@@ -248,9 +248,9 @@
             gifrotate();
             for (var i = players.length - 1; i >= 0; i--)
             {
-                players[i].f.classList.remove("blendmode");
+                players[i].h.classList.remove("blendmode");
                 void players[i].f.offsetWidth;
-                players[i].f.classList.add("blendmode");
+                players[i].h.classList.add("blendmode");
             }
         }
 
