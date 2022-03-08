@@ -42,7 +42,6 @@
                 <ul>
                     <li><b>S</b>: Toggle settings</li>
                     <li><b>X</b>: Go to next video on the videoplayer with least remaining time</li>
-                    <li><b>B</b>: Toggle B/W mode</li>
                     <li><b>T</b>/<b>space</b>: Tap to set tempo</li>
                     <li><b>Mouse1</b>: Set the beginning of a bar, to adjust animation tempo</li>
                 </ul>
@@ -224,19 +223,24 @@
         {
             if (random() < giffreq)
             {
-                $('body').css('backgroundImage', 'url("' + $('#preloadbg').attr('src') + '")').find('#background').removeClass('no-blend');
+                $('#bw').css('backgroundImage', $('body').css('backgroundImage') );
+                $('body').css('backgroundImage', 'url("' + $('#preloadbg').attr('src') + '")');
+                $('#background').removeClass('no-blend');
                 $('#preloadbg').attr('src', 'assets/img/' + Math.ceil(random() * gifcount) + '.gif');
                 if (giffreq<0.55)
-                    giffreq += 0.01;
+                    giffreq += 0.03;
                 else
-                    giffreq = 0.2;
+                    giffreq = 0.44;
             }
             else
             {
-                if (videos.getPlayerState() === 1 || background.getPlayerState() === 1)
-                    $('body').css('backgroundImage', 'none').find('#background').addClass('no-blend');
-                else
-                    $('body').css('backgroundImage', 'assets/img/1.gif')
+                if (videos.getPlayerState() === 1 || background.getPlayerState() === 1){
+                    $('#bw').css('backgroundImage', $('body').css('backgroundImage') );
+                    $('body').css('backgroundImage', 'none');
+                    $('#background').addClass('no-blend');
+                }else{
+                    $('#bw').css('backgroundImage', 'assets/img/1.gif');
+                }
             }
             $('#bpm-preview').css('opacity', 0);
         }
